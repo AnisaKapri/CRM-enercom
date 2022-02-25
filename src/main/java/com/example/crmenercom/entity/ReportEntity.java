@@ -5,16 +5,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "technology_deployed")
-public class TechnologyDeployed {
+@Table(name = "report")
+public class ReportEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private int years;
+    private String title;
+    private String fileName;
+    private LocalDate created;
 }

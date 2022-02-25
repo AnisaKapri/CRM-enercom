@@ -10,13 +10,13 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "company")
-public class Company {
+@Table(name = "sold_products")
+public class SoldProductsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
-    private String fullName;
-    private String nip;
+    private String name;
+
+
 }

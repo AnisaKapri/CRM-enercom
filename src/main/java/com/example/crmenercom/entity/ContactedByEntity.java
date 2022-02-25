@@ -10,15 +10,14 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
-public class User {
+@Table(name = "contacted_by")
+public class ContactedByEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
-    private String email;
-    private String firstName;
-    private String lastName;
-    private boolean active;
-    private String phoneNumber;
+    private int id;
+    private String name;
+
+
 }

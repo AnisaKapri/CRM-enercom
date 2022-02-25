@@ -5,19 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "report")
-public class Report {
+@Table(name = "client")
+public class ClientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int id;
-    private String title;
-    private String fileName;
-    private LocalDate created;
+    private String name;
+    private String status;
+    private String nip;
+    private LocalDateTime created;
+
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "contact_person")
-public class ContactPerson {
+public class ContactPersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

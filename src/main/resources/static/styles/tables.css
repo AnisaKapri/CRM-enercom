@@ -1,0 +1,38 @@
+:root {
+    --primary: #1a81a4;
+    --bg: whitesmoke;
+}
+body { background: var(--bg); }
+main { width: 80%; }
+.sidebar, aside, main {
+    display: flex;
+    flex-flow: column;
+    height: 100vh;
+}
+.icon {
+    fill: var(--primary);
+    vertical-align: -.125em;
+}
+aside {
+    position: fixed;
+    width: 280px;
+    z-index: 1;
+}
+a { cursor: pointer; }
+form { display: none; }
+thead { font-weight: bold; }
+td { text-align: center; }
+.dataTable { min-width: 700px; }
+.dataTables_wrapper, .row:nth-child(3) { position: sticky; }
+.pagination { justify-content: center !important; }
+.col-md-5 { display: none; }
+.col-md-7 { width: 100%; }
+.page-link { color: var(--primary); }
+.page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+footer {
+    position: sticky;
+    top: 90%;
+}
