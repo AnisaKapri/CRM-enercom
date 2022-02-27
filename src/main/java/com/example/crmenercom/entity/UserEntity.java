@@ -3,10 +3,11 @@ package com.example.crmenercom.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 
 @Entity
-@Getter
-@Setter
+@Data
+@Builder
 @Table(name = "user")
 public class UserEntity {
     @Id
@@ -19,6 +20,16 @@ public class UserEntity {
     private String email;
     private String password;
 
+
+   /* @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+
+    */
+
     public UserEntity(int id, String role, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.role = role;
@@ -28,9 +39,9 @@ public class UserEntity {
         this.password = password;
     }
 
-    public UserEntity() {
+    public UserEntity(String firstName, String lastName, String email, String encode) {
     }
 
-    public UserEntity(String firstName, String lastName, String email, String encode) {
+    public UserEntity() {
     }
 }

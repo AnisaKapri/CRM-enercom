@@ -15,4 +15,5 @@ public class ClientDto {
     private String status;
     private String nip;
     private LocalDateTime created;
+    private boolean customerOfPCTI;
 }

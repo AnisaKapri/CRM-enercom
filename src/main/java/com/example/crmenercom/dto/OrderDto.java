@@ -8,8 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderDto {
 
     private int id;
@@ -17,4 +15,15 @@ public class OrderDto {
     private int customerId;
     private int status;
     private List<ProductDto> products;
+
+    public OrderDto() {}
+
+    public OrderDto(OrderDto o) {
+        id = o.id;
+        date = o.date;
+        customerId = o.customerId;
+        status = o.status;
+        products = o.products;
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.example.crmenercom.util;
 
+import com.example.crmenercom.dto.ProductDto;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -7,18 +9,19 @@ public class Utils {
     public static final String
             NAME_REGEX = "^[A-Z][a-z]+$",
             MULT_NAMES_REGEX = "^[A-Z][a-z]+(\\s[A-Z][a-z]+)*$",
-            EMAIL_REGEX = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z]+\\.[a-z]+$",
-            CURRENCY_REGEX = "^[A-Z]{3}$";
+            EMAIL_REGEX = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z]+\\.[a-z]+$";
 
     public static final String
-            CURRENCY_NOT_SUPPORTED = "This currency is not supported!",
             EMAIL_NOT_UNIQUE = "This email already exists!",
             EMAIL_NOT_FOUND = "This email doesn't exist!",
             ORDER_NOT_FOUND = "Requested order could not be found!",
-            ITEM_NOT_FOUND = "Requested item could not be found!",
-            CTG_HAS_ITEMS = "Category already has items and cannot be deleted!",
+            PRODUCT_NOT_FOUND = "Requested item could not be found!",
             INVALID_PASS = "Password is incorrect!";
 
+
+    public static String ProductNotUnique(ProductDto product) {
+        return String.format("Product \"%s\" already exists!", product.getName());
+    }
 
     public static String capFirst(String str) {
         if (str.contains(" ")) {

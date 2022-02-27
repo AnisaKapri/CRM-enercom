@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface UserService extends UserDetailsService {
 
     Boolean existsByEmail(String email);

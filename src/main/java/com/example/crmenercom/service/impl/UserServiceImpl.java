@@ -7,6 +7,7 @@ import com.example.crmenercom.repository.UserRepository;
 import com.example.crmenercom.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Primary
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserServiceImpl implements UserService {

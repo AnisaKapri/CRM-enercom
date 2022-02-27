@@ -17,12 +17,6 @@ class CustomSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-//        fixme -> spring security doesn't grant authorities
-        //       if (!(authentication instanceof AnonymousAuthenticationToken)) {
-        //           UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-        //           System.out.println("User principal name =" + userPrincipal.getUsername());
-        //          System.out.println("Is user enabled =" + userPrincipal.isEnabled());
-        //      }
 
         String redirectUrl = null;
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

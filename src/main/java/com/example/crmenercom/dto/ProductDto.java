@@ -15,9 +15,18 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductDto {
 
-    private int id;
+    private Integer id;
     @Pattern(regexp = Utils.MULT_NAMES_REGEX, message = "Product name is invalid!")
     private String name;
     private String price;
     private List<OrderEntity> orders = new ArrayList<>();
+
+    public void setName(String name) {
+        this.name = Utils.capFirst(name);
+    }
+
+
+    public boolean equalsLogically(ProductDto product) {
+        return this == product || name.equals(product.name);
+    }
 }

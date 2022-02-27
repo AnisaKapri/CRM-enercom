@@ -3,7 +3,7 @@ package com.example.crmenercom.mapper;
 import com.example.crmenercom.dto.ProductDto;
 import com.example.crmenercom.entity.ProductEntity;
 
-public class ProductsMapper {
+public class ProductMapper {
 
     public static ProductEntity toEntity(ProductDto dto) {
         ProductEntity entity = new ProductEntity();

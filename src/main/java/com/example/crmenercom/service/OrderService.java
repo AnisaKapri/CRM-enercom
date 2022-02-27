@@ -3,10 +3,11 @@ package com.example.crmenercom.service;
 import com.example.crmenercom.dto.OrderDto;
 import com.example.crmenercom.dto.ProductDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Transactional
 public interface OrderService {
     List<OrderDto> selectAll();
 

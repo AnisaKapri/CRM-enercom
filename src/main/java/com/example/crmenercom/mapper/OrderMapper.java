@@ -13,7 +13,7 @@ public class OrderMapper {
         entity.setCustomerId(dto.getCustomerId());
         entity.setStatus(dto.getStatus());
         entity.setProducts(dto.getProducts()
-                .stream().map(ProductsMapper::toEntity)
+                .stream().map(ProductMapper::toEntity)
                 .collect(Collectors.toList()));
         return entity;
     }
@@ -25,7 +25,7 @@ public class OrderMapper {
         dto.setCustomerId(entity.getCustomerId());
         dto.setStatus(entity.getStatus());
         dto.setProducts(entity.getProducts()
-                .stream().map(ProductsMapper::toDto)
+                .stream().map(ProductMapper::toDto)
                 .collect(Collectors.toList()));
         return dto;
     }
