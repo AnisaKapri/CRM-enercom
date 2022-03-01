@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -49,18 +50,20 @@ public class AuthController {
     }
 
     @PostMapping("/perform_signup")
-    public String performSignup(@ModelAttribute(name = "user") @Valid UserDto customer,
-                                BindingResult result, Model model) {
-        if (userService.existsByEmail(customer)) {
+    public String performSignup(UserDto customer) {
+      /*  if (userService.existsByEmail(customer)) {
             model.addAttribute("nonUniqueEmailError", Utils.EMAIL_NOT_UNIQUE);
             return SIGNUP;
         } else if (result.hasErrors()) {
             return SIGNUP;
-        } else {
+        } else
+        {
+       */
+
             customer.setRole("USER");
             loggedInUser = userService.addUser(customer);
             return "redirect:/";
-        }
+        //}
     }
 
     @PostMapping("/perform_login")

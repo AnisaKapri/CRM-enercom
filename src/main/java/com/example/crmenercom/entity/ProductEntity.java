@@ -9,8 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @Builder
-
-@Table(name = "products")
+@Table(name = "product")
 public class ProductEntity {
 
     @Id
@@ -19,17 +18,17 @@ public class ProductEntity {
     private String name;
     private String price;
 
-    @ManyToMany(mappedBy = "products")
-    private List<OrderEntity> orders;
+    @ManyToMany(mappedBy = "product")
+    private List<OrderEntity> order;
 
 
     public ProductEntity() {
     }
 
-    public ProductEntity(int id, String name, String price, List<OrderEntity> orders) {
+    public ProductEntity(int id, String name, String price, List<OrderEntity> order) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.orders = orders;
+        this.order = order;
     }
 }

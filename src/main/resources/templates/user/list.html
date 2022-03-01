@@ -53,7 +53,7 @@
         </tr>
         </tbody>
     </table>
-    <form id="form" method="post" th:action="@{/messages/new}" th:object="${message}">
+    <form id="form" method="post" th:action="@{/messages/new}" th:object="${#messages}">
         <input id="receiverId" type="number" th:field="*{receiverId}"/>
         <input id="text" type="text" th:field="*{text}"/>
     </form>

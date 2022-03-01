@@ -10,7 +10,6 @@ import com.example.crmenercom.service.UserService;
 import com.example.crmenercom.util.OrderStatus;
 import com.example.crmenercom.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,11 +37,11 @@ public class OrderController {
 
     @Autowired
     public OrderController(AuthController auth, OrderService orderService,
-                           UserService userService, ProductService productsService) {
+                           UserService userService, ProductService productService) {
         this.auth = auth;
         this.orderService = orderService;
         this.userService = userService;
-        this.productsService = productsService;
+        this.productsService = productService;
     }
 
     @GetMapping({"/", ""})
@@ -79,7 +78,7 @@ public class OrderController {
             return ERROR;
         } else {
             UserDto customer = userService.findById(order.getCustomerId());
-            List<ProductDto> products = order.getProducts();
+            List<ProductDto> products = order.getProduct();
             model.addAttribute("order", order);
             model.addAttribute("customer", customer);
             return ORDER;

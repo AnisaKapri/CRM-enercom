@@ -19,7 +19,7 @@ public class ProductDto {
     @Pattern(regexp = Utils.MULT_NAMES_REGEX, message = "Product name is invalid!")
     private String name;
     private String price;
-    private List<OrderEntity> orders = new ArrayList<>();
+    private List<OrderEntity> order = new ArrayList<>();
 
     public void setName(String name) {
         this.name = Utils.capFirst(name);

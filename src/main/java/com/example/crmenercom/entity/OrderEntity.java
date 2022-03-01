@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Builder
-@Table(name = "orders")
+@Table(name = "order")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +30,14 @@ public class OrderEntity {
                     @JoinColumn(name = "product_id") }
     )
 
-    private List<ProductEntity> products;
+    private List<ProductEntity> product;
 
-    public OrderEntity(int id, LocalDate date, int customerId, int status, List<ProductEntity> products) {
+    public OrderEntity(int id, LocalDate date, int customerId, int status, List<ProductEntity> product) {
         this.id = id;
         this.date = date;
         this.customerId = customerId;
         this.status = status;
-        this.products = products;
+        this.product = product;
     }
 
     public OrderEntity() {

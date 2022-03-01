@@ -1,8 +1,6 @@
 package com.example.crmenercom.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,7 +12,7 @@ public class OrderDto {
     private LocalDate date;
     private int customerId;
     private int status;
-    private List<ProductDto> products;
+    private List<ProductDto> product;
 
     public OrderDto() {}
 
@@ -23,7 +21,7 @@ public class OrderDto {
         date = o.date;
         customerId = o.customerId;
         status = o.status;
-        products = o.products;
+        product = o.product;
     }
 
 }

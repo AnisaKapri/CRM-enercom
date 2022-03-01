@@ -27,7 +27,7 @@ public class UserController {
 
 
 
-    @GetMapping({"/", ""})
+    @GetMapping({"/user/list"})
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<UserDto> users = userService.selectAll();

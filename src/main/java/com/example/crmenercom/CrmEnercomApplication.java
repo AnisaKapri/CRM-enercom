@@ -11,6 +11,3 @@ public class CrmEnercomApplication {
     }
 
 }
-
-//TO DO
-//ploteso lidhjet e tabelave, repot, servicet

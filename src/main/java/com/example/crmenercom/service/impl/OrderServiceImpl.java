@@ -10,6 +10,8 @@ import com.example.crmenercom.service.OrderService;
 import com.example.crmenercom.util.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository repository;
 
@@ -53,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
         entity.setDate(LocalDate.now());
         entity.setCustomerId(customerId);
         entity.setStatus(OrderStatus.PENDING.code());
-        entity.setProducts(products.stream()
+        entity.setProduct(products.stream()
                 .map(ProductMapper::toEntity)
                 .collect(Collectors.toList()));
         return OrderMapper.toDto(repository.save(entity));
@@ -61,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto add(OrderDto order) {
-        return add(order.getCustomerId(), order.getProducts());
+        return add(order.getCustomerId(), order.getProduct());
     }
 
     @Override

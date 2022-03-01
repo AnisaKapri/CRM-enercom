@@ -70,8 +70,8 @@ public class ProductController {
         return FORM;
     }
 
-  /*  @PostMapping("/add") // TODO: to be deleted
-    public String add(@ModelAttribute(name = "item") @Valid ProductDto product,
+   @PostMapping("/add") //
+    public String add(@ModelAttribute(name = "product") @Valid ProductDto product,
                       BindingResult result, Model model) {
         addLoggedInUser(model);
         if (result.hasErrors()) return FORM;
@@ -80,11 +80,10 @@ public class ProductController {
             model.addAttribute("nonUniqueItemError", Utils.ProductNotUnique(product));
             return FORM;
         }
-        getProductData(model, productService.add(product));
         return RESULT;
     }
 
-   */
+
 
     @PostMapping("/update")
     public String update(@ModelAttribute(name = "updateItem") ProductDto updated) {
@@ -104,7 +103,7 @@ public class ProductController {
 
 
     private void getProductData(Model model, ProductDto product) {
-        List<OrderEntity> orders = product.getOrders();
+        List<OrderEntity> orders = product.getOrder();
         model.addAttribute("product", product);
 
         if (!orders.isEmpty()) {
