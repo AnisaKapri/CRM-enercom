@@ -2,13 +2,10 @@ package com.example.crmenercom.service;
 
 import com.example.crmenercom.dto.UserDto;
 import com.example.crmenercom.entity.UserEntity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-public interface UserService extends UserDetailsService {
+public interface UserService {
 
     Boolean existsByEmail(String email);
 
@@ -27,6 +24,4 @@ public interface UserService extends UserDetailsService {
     UserDto addUser(UserDto newUser);
 
     UserDto deleteById(Integer id);
-
-    UserEntity save(UserDto registrationDto);
 }

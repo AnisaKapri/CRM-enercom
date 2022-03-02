@@ -25,8 +25,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
-
     @GetMapping({"/user/list"})
     public String getAll(Model model) {
         addLoggedInUser(model);
@@ -44,5 +42,4 @@ public class UserController {
     private void addLoggedInUser(Model model) {
         model.addAttribute("user", auth.getLoggedInUser());
     }
-
 }

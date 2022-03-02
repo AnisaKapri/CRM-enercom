@@ -10,10 +10,10 @@ import java.util.Collection;
 import java.util.List;
 
 class UserDetailsImpl implements UserDetails {
+
     private final String email;
     private final String password;
     private final List<GrantedAuthority> authorities;
-
 
     public UserDetailsImpl(UserDto customer) {
         System.out.println("UserDetailsImpl");

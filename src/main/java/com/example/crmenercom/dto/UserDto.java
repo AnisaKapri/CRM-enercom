@@ -7,10 +7,10 @@ import lombok.Setter;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Getter @Setter
 public class UserDto {
-    private int id;
+
+    private Integer id;
     private String role;
     @Pattern(regexp = Utils.NAME_REGEX, message = "First name is invalid!")
     private String firstName;

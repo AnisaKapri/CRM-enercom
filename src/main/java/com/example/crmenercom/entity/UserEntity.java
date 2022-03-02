@@ -1,18 +1,14 @@
 package com.example.crmenercom.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.HashSet;
 
-@Entity
-@Data
-@Builder
-@Table(name = "user")
+@Entity @Table(name = "user")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String role;
     private String firstName;
     private String lastName;
@@ -30,18 +26,6 @@ public class UserEntity {
 
     */
 
-    public UserEntity(int id, String role, String firstName, String lastName, String email, String password) {
-        this.id = id;
-        this.role = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-    }
-
     public UserEntity(String firstName, String lastName, String email, String encode) {
-    }
-
-    public UserEntity() {
     }
 }

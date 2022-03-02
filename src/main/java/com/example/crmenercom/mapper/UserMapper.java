@@ -4,6 +4,7 @@ import com.example.crmenercom.dto.UserDto;
 import com.example.crmenercom.entity.UserEntity;
 
 public class UserMapper {
+
     public static UserEntity toEntity(UserDto dto) {
         UserEntity entity = new UserEntity();
         entity.setId(dto.getId());

@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 public class AuthController {
+
     private static final String
             SIGNUP = "auth/signup",
             LOGIN = "auth/login",
@@ -50,20 +51,18 @@ public class AuthController {
     }
 
     @PostMapping("/perform_signup")
-    public String performSignup(UserDto customer) {
-      /*  if (userService.existsByEmail(customer)) {
+    public String performSignup(@ModelAttribute(name = "user") @Valid UserDto customer,
+                                BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return SIGNUP;
+        } else if (userService.existsByEmail(customer)) {
             model.addAttribute("nonUniqueEmailError", Utils.EMAIL_NOT_UNIQUE);
             return SIGNUP;
-        } else if (result.hasErrors()) {
-            return SIGNUP;
-        } else
-        {
-       */
-
+        } else {
             customer.setRole("USER");
             loggedInUser = userService.addUser(customer);
             return "redirect:/";
-        //}
+        }
     }
 
     @PostMapping("/perform_login")
@@ -77,7 +76,7 @@ public class AuthController {
             model.addAttribute("invalidPassError", Utils.INVALID_PASS);
             return LOGIN;
         } else {
-            loggedInUser = userService.findByEmail(customer.getEmail());;
+            loggedInUser = userService.findByEmail(customer.getEmail());
             return "redirect:/";
         }
     }
@@ -92,6 +91,11 @@ public class AuthController {
         }
     }
 
-    private boolean isLoggedIn() { return loggedInUser != null; }
-    public UserDto getLoggedInUser() { return loggedInUser; }
+    private boolean isLoggedIn() {
+        return loggedInUser != null;
+    }
+
+    public UserDto getLoggedInUser() {
+        return loggedInUser;
+    }
 }

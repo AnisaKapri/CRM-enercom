@@ -1,7 +1,5 @@
 package com.example.crmenercom.security;
 
-import com.sun.istack.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -13,13 +11,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.annotation.Resource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
-    @Autowired
+    @Resource
     private UserDetailsService userDetailsService;
 
     @Bean
@@ -41,15 +39,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(final @NotNull HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/users").hasAuthority("ADMIN")
+//                .antMatchers("/").hasAnyAuthority("USER", "ADMIN")
+//                .antMatchers("/users").hasAuthority("ADMIN")
                 .antMatchers("/**").permitAll()
-
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().rememberMe();
     }
-
-
 }
