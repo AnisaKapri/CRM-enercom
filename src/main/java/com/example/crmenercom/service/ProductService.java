@@ -20,8 +20,6 @@ public interface ProductService {
 
     ProductEntity create(ProductEntity product);
 
-//    ProductDto add(ProductDto product) throws NonUniqueObjectException;
-
     ProductDto overwrite(ProductDto product);
 
     ProductDto delete(ProductDto product);

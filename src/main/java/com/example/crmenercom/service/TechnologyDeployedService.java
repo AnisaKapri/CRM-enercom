@@ -1,8 +1,16 @@
 package com.example.crmenercom.service;
 
-import org.springframework.stereotype.Service;
+import com.example.crmenercom.dto.TechnologyDeployedDto;
 
-@Service
+import java.util.UUID;
 
 public interface TechnologyDeployedService {
+
+    TechnologyDeployedDto getById(int id);
+
+    TechnologyDeployedDto create(TechnologyDeployedDto technologyDeployedDto);
+
+    TechnologyDeployedDto update(TechnologyDeployedDto technologyDeployedDto);
+
+    TechnologyDeployedDto deleteById(int id);
 }

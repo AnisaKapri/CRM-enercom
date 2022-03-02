@@ -6,6 +6,7 @@ import com.example.crmenercom.entity.ReportEntity;
 public class ReportMapper {
 
     public static ReportEntity toEntity(ReportDto dto) {
+        if (dto == null) return null;
         ReportEntity entity = new ReportEntity();
         entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
@@ -15,6 +16,7 @@ public class ReportMapper {
     }
 
     public static ReportDto toDto(ReportEntity entity) {
+        if (entity == null) return null;
         ReportDto dto = new ReportDto();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());

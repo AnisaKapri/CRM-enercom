@@ -36,11 +36,10 @@ public class ProductServiceImpl implements ProductService {
                 .orElse(null);
     }
 
-   @Override
-    public Boolean isUnique(ProductDto newProduct){
+    @Override
+    public Boolean isUnique(ProductDto newProduct) {
         return selectAll().stream().noneMatch(product -> product.equalsLogically(newProduct));
     }
-
 
 
     @Override
@@ -51,36 +50,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity create(ProductEntity product){
+    public ProductEntity create(ProductEntity product) {
         return repository.save(product);
     }
 
-  /* @Override
-    public ProductDto add(ProductDto product) throws NonUniqueResultException {
-        if (isUnique(product)) throw new NonUniqueResultException(product.getName());
-        return ProductMapper.toDto(repository.save(ProductMapper.toEntity(product)));
-    }
-
-   */
 
     @Override
-    public ProductDto delete(ProductDto product){
+    public ProductDto delete(ProductDto product) {
         repository.delete(ProductMapper.toEntity(product));
         return product;
     }
 
     @Override
-    public ProductDto deleteById(Integer id){
+    public ProductDto deleteById(Integer id) {
         return delete(findById(id));
     }
 
     @Override
-    public ProductDto update(ProductDto updated){
+    public ProductDto update(ProductDto updated) {
         return ProductMapper.toDto(repository.save(ProductMapper.toEntity(updated)));
     }
 
     @Override
-    public ProductDto overwrite(ProductDto product){
+    public ProductDto overwrite(ProductDto product) {
         return ProductMapper.toDto(repository.save(ProductMapper.toEntity(product)));
     }
 }

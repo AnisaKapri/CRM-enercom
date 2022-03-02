@@ -6,6 +6,7 @@ import com.example.crmenercom.entity.ContactPersonEntity;
 public class ContactPersonMapper {
 
     public static ContactPersonEntity toEntity(ContactPersonDto dto) {
+        if (dto == null) return null;
         ContactPersonEntity entity = new ContactPersonEntity();
         entity.setId(dto.getId());
         entity.setFirstName(dto.getFirstName());
@@ -16,6 +17,7 @@ public class ContactPersonMapper {
     }
 
     public static ContactPersonDto toDto(ContactPersonEntity entity) {
+        if (entity == null) return null;
         ContactPersonDto dto = new ContactPersonDto();
         dto.setId(entity.getId());
         dto.setFirstName(entity.getFirstName());

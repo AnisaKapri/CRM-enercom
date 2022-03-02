@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class OrderMapper {
     public static OrderEntity toEntity(OrderDto dto) {
+        if (dto == null) return null;
         OrderEntity entity = new OrderEntity();
         entity.setId(dto.getId());
         entity.setDate(dto.getDate());
@@ -19,6 +20,7 @@ public class OrderMapper {
     }
 
     public static OrderDto toDto(OrderEntity entity) {
+        if (entity == null) return null;
         OrderDto dto = new OrderDto();
         dto.setId(entity.getId());
         dto.setDate(entity.getDate());

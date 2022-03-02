@@ -5,16 +5,16 @@ import com.example.crmenercom.entity.ContactedByEntity;
 
 public class ContactedByMapper {
 
-    private static ContactedByEntity toEntity(ContactedByDto dto) {
-
+    public static ContactedByEntity toEntity(ContactedByDto dto) {
+        if (dto == null) return null;
         ContactedByEntity entity = new ContactedByEntity();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         return entity;
     }
 
-    private static ContactedByDto toDto(ContactedByEntity entity) {
-
+    public static ContactedByDto toDto(ContactedByEntity entity) {
+        if (entity == null) return null;
         ContactedByDto dto = new ContactedByDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());

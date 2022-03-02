@@ -6,6 +6,7 @@ import com.example.crmenercom.entity.CountryEntity;
 public class CountryMapper {
 
     public static CountryEntity toEntity(CountryDto dto) {
+        if (dto == null) return null;
         CountryEntity entity = new CountryEntity();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
@@ -14,6 +15,7 @@ public class CountryMapper {
     }
 
     public static CountryDto toDto(CountryEntity entity) {
+        if (entity == null) return null;
         CountryDto dto = new CountryDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());

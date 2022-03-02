@@ -6,6 +6,7 @@ import com.example.crmenercom.entity.UserEntity;
 public class UserMapper {
 
     public static UserEntity toEntity(UserDto dto) {
+        if (dto == null) return null;
         UserEntity entity = new UserEntity();
         entity.setId(dto.getId());
         entity.setRole(dto.getRole());
@@ -17,6 +18,7 @@ public class UserMapper {
     }
 
     public static UserDto toDto(UserEntity entity) {
+        if (entity == null) return null;
         UserDto dto = new UserDto();
         dto.setId(entity.getId());
         dto.setRole(entity.getRole());
