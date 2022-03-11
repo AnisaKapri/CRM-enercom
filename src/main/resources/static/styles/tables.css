@@ -1,6 +1,6 @@
 :root {
-    --primary: #1a81a4;
-    --bg: whitesmoke;
+    --primary: #dc222f;
+    --bg: white;
 }
 body { background: var(--bg); }
 main { width: 80%; }
@@ -10,7 +10,7 @@ main { width: 80%; }
     height: 100vh;
 }
 .icon {
-    fill: var(--primary);
+    fill: black;
     vertical-align: -.125em;
 }
 aside {

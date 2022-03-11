@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Customer List</title>
-    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
-
+    <link rel="icon" href="/static/images/logo-pct.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
@@ -39,12 +38,6 @@
             <td th:text="${customer.role}">Role</td>
             <td class="mx-2" th:if="${customer.id == user.id}"></td>
             <td class="mx-2" th:if="${customer.id != user.id}">
-                <a th:attr="onclick=|messageUser(${customer.id}, '${customer.name}')|"><img class="mx-1"
-                                                                                            title="Message user"
-                                                                                            src="https://img.icons8.com/ios-glyphs/30/000000/no-comments.png"
-                                                                                            height="20" width="20"
-                                                                                            onmouseover="messageOn(this);"
-                                                                                            onmouseout="messageOff(this);"></a>
                 <a th:onclick="|deleteUser(${customer.id})|"><img class="mx-1" title="Remove user"
                                                                   src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png"
                                                                   height="20" width="20" onmouseover="trashOn(this);"
@@ -53,10 +46,6 @@
         </tr>
         </tbody>
     </table>
-    <form id="form" method="post" th:action="@{/messages/new}" th:object="${#messages}">
-        <input id="receiverId" type="number" th:field="*{receiverId}"/>
-        <input id="text" type="text" th:field="*{text}"/>
-    </form>
 </main>
 <script type="text/javascript">
     $(document).ready(() => $('#users').DataTable({
@@ -80,25 +69,7 @@
         });
     }
 
-    function messageUser(id, name) {
-        swal({
-            text: "Send a message to " + name,
-            content: "input",
-            buttons: {
-                cancel: true,
-                send: {
-                    text: "Send",
-                    closeModal: false,
-                }
-            },
-        }).then(text => {
-            if (!text) throw null;
-            const form = $('#form');
-            $('#receiverId').val(id);
-            $('#text').val(text);
-            form.submit();
-        })
-    }
+
 </script>
 </body>
 </html>
