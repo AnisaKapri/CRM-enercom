@@ -16,25 +16,25 @@ public class TechnologyDeployedController {
         this.technologyDeployedService = technologyDeployedService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readTechnologyDeployed")
     public String getById(@ModelAttribute("technologyDeployed") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
         technologyDeployedService.getById(technologyDeployedDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveTechnologyDeployed")
     public String create(@ModelAttribute("technologyDeployed") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
         technologyDeployedService.create(technologyDeployedDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateTechnologyDeployed")
     public String update(@ModelAttribute("technologyDeployed") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
         technologyDeployedService.update(technologyDeployedDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteTechnologyDeployed/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         technologyDeployedService.deleteById(id);
         return "index";

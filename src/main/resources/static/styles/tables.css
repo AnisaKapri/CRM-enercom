@@ -2,15 +2,21 @@
     --primary: #dc222f;
     --bg: white;
 }
+
 body { background: var(--bg); }
 main { width: 80%; }
+
 .sidebar, aside, main {
     display: flex;
     flex-flow: column;
     height: 100vh;
 }
+
+.sidebar{
+    color: black;
+}
 .icon {
-    fill: black;
+    fill: white;
     vertical-align: -.125em;
 }
 aside {

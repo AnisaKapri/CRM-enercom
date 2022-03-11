@@ -19,25 +19,25 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readReport")
     public String getById(@ModelAttribute("report") ReportDto reportDto, BindingResult bindingResult, Model model){
         reportService.getById(reportDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveReport")
     public String create(@ModelAttribute("report") ReportDto reportDto, BindingResult bindingResult, Model model){
         reportService.create(reportDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateReport")
     public String update(@ModelAttribute("report") ReportDto reportDto, BindingResult bindingResult, Model model){
         reportService.update(reportDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteReport/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         reportService.deleteById(id);
         return "index";

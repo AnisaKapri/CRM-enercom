@@ -17,25 +17,25 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readCompany")
     public String getById(@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, Model model){
         companyService.getById(companyDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveCompany")
     public String create(@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, Model model){
         companyService.create(companyDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateCompany")
     public String update(@ModelAttribute("company") CompanyDto companyDto, BindingResult bindingResult, Model model){
         companyService.update(companyDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteCompany/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         companyService.deleteById(id);
         return "index";

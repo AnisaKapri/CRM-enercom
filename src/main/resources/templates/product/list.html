@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link th:href="@{/styles/tables.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" th:src="@{/functions.js}"></script>
+</head>
+<body>
+<aside th:include="/fragments::sidebar"></aside>
+<main class="align-items-center float-end">
+    <p class="mb-5"></p>
+    <table id="items" class="table border-s">
+        <thead class="thead-dark">
+        <tr>
+            <td scope="col">#</td>
+            <td scope="col">Name</td>
+            <td scope="col">Price</td>
+            <td scope="col">Status</td>
+            <td scope="col">Actions</td>
+        </tr>
+        </thead>
+        <tr th:each="product,stats:${products}">
+            <td th:text="${stats.index+1}">ID</td>
+            <td th:text="${product.name}">Product</td>
+            <td th:text="${product.fullPrice}">Price</td>#
+            <td th:text="${product.status}">Status</td>
+
+            <td class="mx-2">
+                <a th:attr="onclick=|editName('${product.id}', '${product.name}')|">
+                    <img class="mx-1" title="Rename product"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
+                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
+                <a th:attr="onclick=|editPrice('${product.id}', '${product.name}', '${product.price}', '${product.symbol}')|">
+                    <img class="mx-1" title="Edit price"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/price-tag-euro.png" height="20" width="20"
+                         onmouseover="priceOn(this);" onmouseout="priceOff(this);"></a>
+                <a th:attr="onclick=|editStatus('${product.status}' )|">
+                    <img class="mx-1" title="Edit status"
+                    src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
+                    onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
+                <a th:attr="onclick=|deleteProduct('${product.id}', '${product.name}')|">
+                    <img class="mx-1" title="Remove product"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
+                         onmouseover="trashOn(this);" onmouseout="trashOff(this);"></a>
+            </td>
+        </tr>
+    </table>
+    <form id="updateName" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
+        <input id="updateName-id" type="number" th:field="*{id}"/>
+        <input id="name" type="text" th:field="*{name}"/>
+    </form>
+    <form id="updatePrice" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
+        <input id="updatePrice-id" type="number" th:field="*{id}"/>
+        <input id="price" type="number" th:field="*{price}"/>
+    </form>
+
+    <form id="updateStatus" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
+        <input id="status" type="text" th:field="*{status}"/>
+    </form>
+</main>
+<script type="text/javascript" th:inline="javascript">
+    function createDropdown(selected) {
+        const dropdown = document.createElement('select');
+        dropdown.setAttribute('name', 'updated');
+        for (let ctg of [[${categories}]]) {
+            let option = document.createElement('option');
+            option.setAttribute('value', ctg.name);
+            option.innerHTML = ctg.name;
+            if (ctg.name === selected)
+                option.setAttribute('selected', '');
+            dropdown.insertAdjacentElement('beforeend', option);
+        }
+        return dropdown;
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(() => $('#items').DataTable({
+        'info': false,
+        'columnDefs': [{
+            'targets': [4],
+            'searchable': false,
+            'orderable': false,
+        }]
+    }));
+    function editName(id, name) {
+        swal({
+            text: `Rename product '${name}'?`,
+            content: {
+                element: "input",
+                attributes: {
+                    value: name,
+                    type: "text",
+                }
+            },
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Rename',
+                    closeModal: false,
+                }
+            },
+        }).then(updated => {
+            if (!updated) throw null;
+            $('#updateName-id').val(id);
+            $('#name').val(updated);
+            $('#updateName').submit();
+        });
+    }
+  /*  function editCtg(id, name, category) {
+        swal({
+            text: `Edit category of item '${name}'?`,
+            content: createDropdown(category),
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Submit',
+                    closeModal: false,
+                }
+            },
+        }).then(selected => {
+            console.log(selected);
+            $('#updateCtg-id').val(id);
+            $('#category').val(selected);
+            // $('#updateCtg').submit();
+        });
+    }
+
+   */
+    function editPrice(id, name, price, symbol) {
+        swal({
+            text: `Edit price of product '${name}' (${symbol})?`,
+            content: {
+                element: 'input',
+                attributes: {
+                    value: price,
+                    type: 'number',
+                    step: 0.5
+                }
+            },
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Submit',
+                    closeModal: false,
+                }
+            },
+        }).then(updated => {
+            if (!updated) throw null;
+            $('#updatePrice-id').val(id);
+            $('#price').val(updated);
+            $('#updatePrice').submit();
+        });
+    }
+
+    function editStatus(id, status){
+        swal({
+            text: `Edit product '${name}'?`,
+            content: {
+                element: "input",
+                attributes: {
+                    value: name,
+                    type: "text",
+                }
+            },
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Edit',
+                    closeModal: false,
+                }
+            },
+        }).then(updated => {
+            if (!updated) throw null;
+            $('#updateStatus-id').val(id);
+            $('#status').val(updated);
+            $('#updateStatus').submit();
+        });
+    }
+
+    function deleteProduct(id, name) {
+        swal({
+            title: 'Are you sure?',
+            text: `'${name}' will also be removed from any active order.`,
+            icon: 'warning',
+            buttons: [true, 'Delete'],
+            dangerMode: true,
+        }).then(deleted => {
+            if (deleted) goTo(`/products/${id}/delete`)
+        });
+    }
+</script>
+</body>
+</html>

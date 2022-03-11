@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-/*
+
 @Controller
 public class ClientController {
 
@@ -16,25 +16,25 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readClient")
     public String getById(@ModelAttribute("client") ClientDto clientDto, BindingResult bindingResult, Model model){
         clientService.getById(clientDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveClient")
     public String create(@ModelAttribute("applicationModule") ClientDto clientDto, BindingResult bindingResult, Model model){
         clientService.create(clientDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateClient")
     public String update(@ModelAttribute("address") ClientDto clientDto, BindingResult bindingResult, Model model){
         clientService.update(clientDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteClient/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         clientService.deleteById(id);
         return "index";
@@ -42,4 +42,4 @@ public class ClientController {
 
 }
 
- */
+

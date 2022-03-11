@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Transactional
 public interface ProductService {
     Boolean contains(ProductDto product);
 
@@ -20,12 +20,16 @@ public interface ProductService {
 
     ProductEntity create(ProductEntity product);
 
+    ProductDto update(ProductDto current, ProductDto updated);
+
     ProductDto overwrite(ProductDto product);
 
     ProductDto delete(ProductDto product);
 
     ProductDto deleteById(Integer id);
 
-    ProductDto update(ProductDto updated);
+    Boolean approveById(Integer id);
 
+
+    void update(ProductDto updated); //KONTROLLOJE SE ESHTE GABIM
 }

@@ -1,7 +1,9 @@
 package com.example.crmenercom.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @Builder
+@AllArgsConstructor
 @Table(name = "product")
 public class ProductEntity {
 
@@ -16,6 +19,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private int status;
     private String price;
 
     @ManyToMany(mappedBy = "product")

@@ -19,25 +19,25 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readCountry")
     public String getById(@ModelAttribute("country") CountryDto countryDto, BindingResult bindingResult, Model model){
         countryService.getById(countryDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveCountry")
     public String create(@ModelAttribute("country") CountryDto countryDto, BindingResult bindingResult, Model model){
         countryService.create(countryDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateCountry")
     public String update(@ModelAttribute("country") CountryDto countryDto, BindingResult bindingResult, Model model){
         countryService.update(countryDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteCountry/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         countryService.deleteById(id);
         return "index";

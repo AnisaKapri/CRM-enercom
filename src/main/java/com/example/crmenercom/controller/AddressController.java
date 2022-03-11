@@ -16,25 +16,25 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readAddress")
     public String getById(@ModelAttribute("address") AddressDto addressDto, BindingResult bindingResult, Model model){
         addressService.getById(addressDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveAddress")
     public String create(@ModelAttribute("address") AddressDto addressDto, BindingResult bindingResult, Model model){
         addressService.create(addressDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateAddress")
     public String update(@ModelAttribute("address") AddressDto addressDto, BindingResult bindingResult, Model model){
         addressService.update(addressDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteAddress/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         addressService.deleteById(id);
         return "index";

@@ -19,25 +19,25 @@ public class SalesQuantityController {
         this.salesQuantityService = salesQuantityService;
     }
 
-    @GetMapping("/read")
+    @GetMapping("/readSalesQuantity")
     public String getById(@ModelAttribute("salesQuantity") SalesQuantityDto salesQuantityDto, BindingResult bindingResult, Model model){
         salesQuantityService.getById(salesQuantityDto.getId());
         return "index";  // NDRYSHO
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveSalesQuantity")
     public String create(@ModelAttribute("salesQuantity") SalesQuantityDto salesQuantityDto, BindingResult bindingResult, Model model){
         salesQuantityService.create(salesQuantityDto);
         return "index";
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateSalesQuantity")
     public String update(@ModelAttribute("salesQuantity") SalesQuantityDto salesQuantityDto, BindingResult bindingResult, Model model){
         salesQuantityService.update(salesQuantityDto);
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteSalesQuantity/{id}")
     public String deleteById(@PathVariable (value = "id") int id){
         salesQuantityService.deleteById(id);
         return "index";

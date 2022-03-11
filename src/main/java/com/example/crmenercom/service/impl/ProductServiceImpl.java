@@ -5,12 +5,14 @@ import com.example.crmenercom.entity.ProductEntity;
 import com.example.crmenercom.mapper.ProductMapper;
 import com.example.crmenercom.repository.ProductRepository;
 import com.example.crmenercom.service.ProductService;
+import com.example.crmenercom.util.ProductStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(ProductMapper::toDto)
                 .orElse(null);
     }
+
 
     @Override
     public Boolean isUnique(ProductDto newProduct) {
@@ -67,9 +70,31 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto update(ProductDto updated) {
-        return ProductMapper.toDto(repository.save(ProductMapper.toEntity(updated)));
+    public Boolean approveById(Integer id) {
+        ProductDto product = findById(id);
+        if (product != null && Objects.equals(product.getStatus(), ProductStatus.ON_STOCK.code())) {
+            ProductDto updated = new ProductDto(product);
+            updated.setStatus(ProductStatus.SOLD.code());
+            update(product, updated);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    @Override
+    public void update(ProductDto updated) {
+    }
+
+    //KONTROLLO SE ESHTE GABIM. e shtova per shkak te nje errori
+
+
+    @Override
+    public ProductDto update(ProductDto current, ProductDto updated) {
+        repository.save(ProductMapper.toEntity(updated));
+        return current;
+    }
+
 
     @Override
     public ProductDto overwrite(ProductDto product) {
