@@ -10,7 +10,7 @@ public class CompanyMapper {
         CompanyEntity entity = new CompanyEntity();
         entity.setId(dto.getId());
         entity.setFullName(dto.getFullName());
-        entity.setNip(dto.getNip());
+
         return entity;
     }
 
@@ -19,7 +19,7 @@ public class CompanyMapper {
         CompanyDto dto = new CompanyDto();
         dto.setId(entity.getId());
         dto.setFullName(entity.getFullName());
-        dto.setNip(entity.getNip());
+
         return dto;
     }
 }

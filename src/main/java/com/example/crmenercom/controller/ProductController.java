@@ -101,7 +101,6 @@ public class ProductController {
 
 
 
-
     private void getProductData(Model model, ProductDto product) {
         List<OrderEntity> orders = product.getOrder();
         model.addAttribute("product", product);

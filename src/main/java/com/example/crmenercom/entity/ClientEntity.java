@@ -27,4 +27,6 @@ public class ClientEntity {
     private boolean customerOfPCTI;
 
 
+
+
 }

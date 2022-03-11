@@ -76,12 +76,16 @@
             <li class="nav-item"><a th:href="@{/orders}" class="nav-link text-white">
                 <svg class="bi me-2 icon" width="16" height="16"><use xlink:href="#table"></use></svg>
                 <span>Orders</span></a></li>
-            <li class="nav-item"><a th:href="@{/items}" class="nav-link text-white">
+          <!--  <li class="nav-item"><a th:href="@{/items}" class="nav-link text-white">
                 <svg class="bi me-2 icon" width="16" height="16"><use xlink:href="#grid"></use></svg>
                 <span>Items</span></a></li>
+
+
             <li class="nav-item"><a th:href="@{/requests}" class="nav-link text-white">
                 <svg class="bi me-2 icon" width="16" height="16"><use xlink:href="#geo-fill"></use></svg>
                 <span>Requests</span></a></li>
+
+                -->
         </ul>
         <ul th:if="${not isAdmin}" class="nav nav-pills flex-column mb-auto">
             <li class="nav-item"><a th:href="@{/products/active}" class="nav-link text-white">

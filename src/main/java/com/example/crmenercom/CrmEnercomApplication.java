@@ -9,5 +9,4 @@ public class CrmEnercomApplication {
     public static void main(String[] args) {
         SpringApplication.run(CrmEnercomApplication.class, args);
     }
-
 }

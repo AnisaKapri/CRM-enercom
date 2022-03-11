@@ -20,5 +20,4 @@ public class CompanyEntity {
 
     private int id;
     private String fullName;
-    private String nip;
 }
