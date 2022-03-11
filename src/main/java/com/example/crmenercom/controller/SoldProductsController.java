@@ -1,13 +1,12 @@
 package com.example.crmenercom.controller;
 
-import com.example.crmenercom.dto.SalesQuantityDto;
 import com.example.crmenercom.dto.SoldProductsDto;
 import com.example.crmenercom.service.SoldProductsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+/*
 @Controller
 public class SoldProductsController {
 
@@ -42,3 +41,6 @@ public class SoldProductsController {
         return "index";
     }
 }
+
+
+ */

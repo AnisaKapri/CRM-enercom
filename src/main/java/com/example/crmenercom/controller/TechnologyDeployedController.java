@@ -1,6 +1,5 @@
 package com.example.crmenercom.controller;
 
-import com.example.crmenercom.dto.SoldProductsDto;
 import com.example.crmenercom.dto.TechnologyDeployedDto;
 import com.example.crmenercom.service.TechnologyDeployedService;
 import org.springframework.stereotype.Controller;
@@ -18,19 +17,19 @@ public class TechnologyDeployedController {
     }
 
     @GetMapping("/read")
-    public String getById(@ModelAttribute("salesQuantity") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
+    public String getById(@ModelAttribute("technologyDeployed") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
         technologyDeployedService.getById(technologyDeployedDto.getId());
         return "index";  // NDRYSHO
     }
 
     @PostMapping("/save")
-    public String create(@ModelAttribute("salesQuantity") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
+    public String create(@ModelAttribute("technologyDeployed") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
         technologyDeployedService.create(technologyDeployedDto);
         return "index";
     }
 
     @PutMapping("/update")
-    public String update(@ModelAttribute("salesQuantity") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
+    public String update(@ModelAttribute("technologyDeployed") TechnologyDeployedDto technologyDeployedDto, BindingResult bindingResult, Model model){
         technologyDeployedService.update(technologyDeployedDto);
         return "index";
     }
