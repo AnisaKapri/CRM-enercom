@@ -19,12 +19,11 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    private int status;
+    private Integer status;
     private String price;
 
     @ManyToMany(mappedBy = "product")
     private List<OrderEntity> order;
-
 
     public ProductEntity() {
     }

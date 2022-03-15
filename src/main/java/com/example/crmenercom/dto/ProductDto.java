@@ -19,12 +19,12 @@ public class ProductDto {
     private Integer id;
     @Pattern(regexp = Utils.MULT_NAMES_REGEX, message = "Product name is invalid!")
     private String name;
-    private int status;
+    private Integer status;
     private String price;
     private List<OrderEntity> order = new ArrayList<>();
 
 
-    public ProductDto(Integer id, String name, int status, String price, List<OrderEntity> order) {
+    public ProductDto(Integer id, String name, Integer status, String price, List<OrderEntity> order) {
         this.id = id;
         this.name = name;
         this.status = status;

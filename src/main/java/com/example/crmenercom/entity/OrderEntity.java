@@ -19,17 +19,13 @@ public class OrderEntity {
     private int id;
     private LocalDate date;
     private int customerId;
-    private int status;
+    private Integer status;
 
     @ManyToMany
-    @JoinTable(
-            name = "order_product",
-            joinColumns = {
-                    @JoinColumn(name = "order_id") },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "product_id") }
+    @JoinTable(name = "order_product",
+            joinColumns = { @JoinColumn(name = "order_id") },
+            inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
-
     private List<ProductEntity> product;
 
     public OrderEntity(int id, LocalDate date, int customerId, int status, List<ProductEntity> product) {

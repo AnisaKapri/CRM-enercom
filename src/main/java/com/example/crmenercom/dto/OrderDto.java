@@ -11,7 +11,7 @@ public class OrderDto {
     private int id;
     private LocalDate date;
     private int customerId;
-    private int status;
+    private Integer status;
     private List<ProductDto> product;
 
     public OrderDto() {}

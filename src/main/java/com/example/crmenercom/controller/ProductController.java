@@ -41,7 +41,7 @@ public class ProductController {
     }
 
 
-    @GetMapping({"/", ""})
+    @GetMapping("/list")
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<ProductDto> products = productService.selectAll();
@@ -74,7 +74,8 @@ public class ProductController {
     public String add(@ModelAttribute(name = "product") @Valid ProductDto product,
                       BindingResult result, Model model) {
         addLoggedInUser(model);
-        if (result.hasErrors()) return FORM;
+        if (result.hasErrors())
+            return FORM;
 
         if (productService.isUnique(product)) {
             model.addAttribute("nonUniqueItemError", Utils.ProductNotUnique(product));
@@ -86,7 +87,7 @@ public class ProductController {
 
 
     @PostMapping("/update")
-    public String update(@ModelAttribute(name = "updateItem") ProductDto updated) {
+    public String update(@ModelAttribute(name = "updateProduct") ProductDto updated) {
         fillOut(updated);
         productService.update(updated);
         return "redirect:/products";

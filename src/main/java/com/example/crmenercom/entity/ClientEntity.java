@@ -20,13 +20,23 @@ public class ClientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int id;
-    private String name;
-    private String status;
-    private String nip;
+    private String country;
+    private String company;
+    private String operator;
+    private String technologyDeployed;
+    private boolean customerOfPCT;
+    private String contact;
+    private String role;
+    private String contactedBy;
+
+
     private LocalDateTime created;
-    private boolean customerOfPCTI;
+
+    public boolean getCustmerOfPCT() {
+        return false;
+    }
 
 
-
+    //Lidh me nje tabele contactDetail??
 
 }

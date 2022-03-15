@@ -25,7 +25,7 @@ function focusError(error, input) {
 const black = '000000', red = 'df4740', green = '40a21d', teal = '1a81a4',
     cancel = 'cancel', approve = 'checked--v1', trash = 'filled-trash',
     message = 'no-comments', details = 'view-delivery',
-    edit = 'edit--v1', ctg = 'category', price = 'price-tag-euro';
+    edit = 'edit--v1', cnt = 'country', price = 'price-tag-euro';
 const cancelOn = el => paintIcon(el, cancel, red);
 const cancelOff = el => paintIcon(el, cancel, black);
 const approveOn = el => paintIcon(el, approve, green);
@@ -36,5 +36,7 @@ const detailsOn = el => paintIcon(el, details, teal);
 const detailsOff = el => paintIcon(el, details, black);
 const editOn = el => paintIcon(el, edit, teal);
 const editOff = el => paintIcon(el, edit, black);
+const cntOn = el => paintIcon(el, cnt, teal);
+const cntOff = el => paintIcon(el, cnt, black);
 const priceOn = el => paintIcon(el, price, teal);
 const priceOff = el => paintIcon(el, price, black);

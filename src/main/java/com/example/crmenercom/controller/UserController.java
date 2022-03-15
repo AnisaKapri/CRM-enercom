@@ -25,7 +25,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping({"/user/list"})
+    @GetMapping({"/list"})
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<UserDto> users = userService.selectAll();

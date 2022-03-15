@@ -44,7 +44,7 @@ public class OrderController {
         this.productsService = productService;
     }
 
-    @GetMapping({"/", ""})
+    @GetMapping({"/list"})
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<OrderDto> orders = orderService.selectAll();
@@ -56,7 +56,7 @@ public class OrderController {
         return LIST;
     }
 
-    @GetMapping("/active") // WIP -> select only active orders
+    @GetMapping("/active")
     public String getActive(Model model) {
         addLoggedInUser(model);
         UserDto user = auth.getLoggedInUser();

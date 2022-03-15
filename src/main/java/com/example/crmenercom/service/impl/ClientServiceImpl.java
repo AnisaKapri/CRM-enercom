@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +23,27 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
+    public List<ClientDto> selectAll() {
+        return repository.findAll()
+                .stream().map(ClientMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ClientDto findById(Integer id) {
+        return repository.findById(id)
+                .map(ClientMapper::toDto)
+                .orElse(null);
+    }
+
+    @Override
     public ClientDto getById(int id) {
         return ClientMapper.toDto(repository.findById(id).orElse(null));
     }
 
     @Override
-    public ClientDto create(ClientDto clientDto) {
-        return ClientMapper.toDto(repository.save(ClientMapper.toEntity(clientDto)));
+    public ClientDto create(ClientDto client) {
+        return ClientMapper.toDto(repository.save(ClientMapper.toEntity(client)));
     }
 
     @Override
@@ -36,12 +51,16 @@ public class ClientServiceImpl implements ClientService {
         return ClientMapper.toDto(repository.save(ClientMapper.toEntity(clientDto)));
     }
 
-    @Override
-    public ClientDto deleteById(int id) {
-        ClientEntity entity = repository.findById(id).orElse(null);
-        if (entity == null) return null;
-        repository.delete(entity);
-        return ClientMapper.toDto(entity);
-    }
 
+    @Override
+    public ClientDto deleteById(Integer id) {
+        ClientEntity client = repository.findById(id).orElse(null);
+        if (client != null) {
+            ClientDto dto = ClientMapper.toDto(client);
+            repository.delete(client);
+            return dto;
+        } else {
+            return null;
+        }
+    }
 }
