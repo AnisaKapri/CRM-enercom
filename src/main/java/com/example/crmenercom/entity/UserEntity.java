@@ -3,7 +3,7 @@ package com.example.crmenercom.entity;
 import lombok.*;
 import javax.persistence.*;
 
-@Entity @Table(name = "user")
+@Entity @Table(name = "users")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class UserEntity {
 

@@ -1,10 +1,7 @@
 package com.example.crmenercom.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +23,7 @@ public class OrderEntity {
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
+
     private List<ProductEntity> product;
 
     public OrderEntity(int id, LocalDate date, int customerId, int status, List<ProductEntity> product) {

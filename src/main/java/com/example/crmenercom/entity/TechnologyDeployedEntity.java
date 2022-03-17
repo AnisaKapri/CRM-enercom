@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "technology_deployed")
+@Table(name = "technologies_deployed")
 public class TechnologyDeployedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
