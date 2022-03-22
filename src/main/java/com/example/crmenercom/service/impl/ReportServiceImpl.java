@@ -1,9 +1,7 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.ReportDto;
-import com.example.crmenercom.entity.AddressEntity;
 import com.example.crmenercom.entity.ReportEntity;
-import com.example.crmenercom.mapper.AddressMapper;
 import com.example.crmenercom.mapper.ReportMapper;
 import com.example.crmenercom.repository.ReportRepository;
 import com.example.crmenercom.service.ReportService;

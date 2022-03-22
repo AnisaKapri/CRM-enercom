@@ -1,16 +1,13 @@
 package com.example.crmenercom.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "clients")
@@ -32,9 +29,11 @@ public class ClientEntity {
 
     private LocalDateTime created;
 
-    public boolean getCustmerOfPCT() {
+    public boolean getCustomerOfPCT() {
         return false;
     }
+
+
 
 
     //Lidh me nje tabele contactDetail??

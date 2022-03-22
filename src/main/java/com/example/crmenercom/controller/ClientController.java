@@ -2,34 +2,33 @@ package com.example.crmenercom.controller;
 
 import com.example.crmenercom.dto.ClientDto;
 import com.example.crmenercom.service.ClientService;
-import com.example.crmenercom.util.Utils;
+import com.example.crmenercom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/clients")
 public class ClientController {
 
     private static final String
-            CLIENT_LIST = "clients/list",
+            CLIENT_LIST = "client/list",
             CLIENT_BY_ID = "client/id",
             RESULT = "client/result",
-            FORM= "client/form",
+            FORM = "client/form",
             ERROR = "error";
 
 
     private final ClientService clientService;
+    private final UserService userService;
     private final AuthController auth;
 
     @Autowired
-    public ClientController(ClientService clientService, AuthController auth) {
+    public ClientController(ClientService clientService, UserService userService, AuthController auth) {
         this.clientService = clientService;
+        this.userService = userService;
         this.auth = auth;
     }
 
@@ -38,17 +37,20 @@ public class ClientController {
     }
 
 
-    @GetMapping({"/", ""})
-    public String getAll(Model model){
+    @GetMapping(value = "/client/list")
+    public String getAll(Model model) {
         addLoggedInUser(model);
         List<ClientDto> clients = clientService.selectAll();
-        model.addAttribute("clients", clients);
+      // List<ClientEntity> clients = clientService.findAll();
+        model.addAttribute("customers", clients);
         model.addAttribute("updatedClient", new ClientDto());
         return CLIENT_LIST;
     }
 
 
-    @GetMapping("{id}")
+
+
+   /* @GetMapping("{id}")
     public String getById(Model model, @PathVariable(value = "id") Integer id){
         ClientDto client = clientService.findById(id);
         if(client == null){
@@ -56,55 +58,49 @@ public class ClientController {
             return ERROR;
         }else {
             addLoggedInUser(model);
-          //  getClientData(model, client);
+            getClientData(model, client);
             return CLIENT_BY_ID;
         }
     }
 
-    @PostMapping("/add")
-    public String add(@ModelAttribute(name = "client") @Valid ClientDto client, BindingResult result,Model model){
-        addLoggedInUser(model);
-        if(result.hasErrors()) return FORM;
-
-        return null; //kontrollo
-    }
-
-    @PutMapping("/updateClient")
-    public String update(@ModelAttribute("address") ClientDto clientDto, BindingResult bindingResult, Model model) {
-        clientService.update(clientDto);
-        return "index";
-    } //KONTROLLO
+    */
 
 
     @RequestMapping(value = "{id}/delete")
-    public String deleteById(@PathVariable(value = "id") Integer id){
+    public String deleteById(@PathVariable(value = "id") Integer id) {
         clientService.deleteById(id);
         return "redirect:/clients";
     }
 
-
-
-
- /*   @GetMapping("/readClient")
-    public String getById(@ModelAttribute("client") ClientDto clientDto, BindingResult bindingResult, Model model) {
-        clientService.getById(clientDto.getId());
-        return "index";  // NDRYSHO
-    }
-
-    @PostMapping("/saveClient")
-    public String create(@ModelAttribute("applicationModule") ClientDto clientDto, BindingResult bindingResult, Model model) {
-        clientService.create(clientDto);
-        return "index";
+    /*
+    @PostMapping("/add")
+    public String add(@ModelAttribute(name = "client") @Valid ClientDto client, BindingResult result,Model model){
+        addLoggedInUser(model);
+        if(result.hasErrors()) return FORM;
+        getClientData(model, clientService.add(client));
+        return RESULT; //kontrollo
     }
 
 
-    @DeleteMapping("/deleteClient/{id}")
-    public String deleteById(@PathVariable(value = "id") int id) {
-        clientService.deleteById(id);
-        return "index";
+    @PutMapping("/update")
+    public String update(@ModelAttribute(name = "updateClient") ClientDto clientDto) {
+        fillOut(updated);
+        clientService.update(updated);
+        return "redirect:/clients";
+    } //KONTROLLO
+
+
+    private void getClientData(Model model, ClientDto clients){
+        model.addAttribute("client", clients);
+
+        if (!clients.isEmpty()){
+            System.out.println(clients.size());
+            Map<Integer, UserDto> customers = new HashMap<>();
+            for ()
+        }
     }
 
-  */
+     */
 
 }
 

@@ -1,9 +1,7 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.SalesQuantityDto;
-import com.example.crmenercom.entity.AddressEntity;
 import com.example.crmenercom.entity.SalesQuantityEntity;
-import com.example.crmenercom.mapper.AddressMapper;
 import com.example.crmenercom.mapper.SalesQuantityMapper;
 import com.example.crmenercom.repository.SalesQuantityRepository;
 import com.example.crmenercom.service.SalesQuantityService;

@@ -2,18 +2,14 @@ package com.example.crmenercom.dto;
 
 import com.example.crmenercom.entity.OrderEntity;
 import com.example.crmenercom.util.Utils;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-
+@Getter
+@Setter
 public class ProductDto {
 
     private Integer id;
@@ -21,25 +17,23 @@ public class ProductDto {
     private String name;
     private Integer status;
     private String price;
-    private List<OrderEntity> order = new ArrayList<>();
+    private List<OrderEntity> orders = new ArrayList<>();
 
-
-    public ProductDto(Integer id, String name, Integer status, String price, List<OrderEntity> order) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
-        this.price = price;
-        this.order = order;
+    public ProductDto() {
     }
 
-    public ProductDto(ProductDto product) {
+    public ProductDto(ProductDto p) {
+        id = p.id;
+        name = p.name;
+        status = p.status;
+        price = p.price;
+        orders = p.orders;
     }
 
 
     public void setName(String name) {
         this.name = Utils.capFirst(name);
     }
-
 
     public boolean equalsLogically(ProductDto product) {
         return this == product || name.equals(product.name);

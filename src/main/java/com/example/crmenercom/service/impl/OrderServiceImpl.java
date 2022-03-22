@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 public class OrderServiceImpl implements OrderService {
+
     private final OrderRepository repository;
 
     @Autowired
@@ -39,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDto> selectAllFromUser(Integer id) {
         return repository.findAll()
                 .stream().map(OrderMapper::toDto)
-                .filter(order -> Objects.equals(order.getCustomerId(), id))
+                .filter(order -> order.getCustomerId().equals(id))
                 .collect(Collectors.toList());
     }
 
@@ -56,15 +57,15 @@ public class OrderServiceImpl implements OrderService {
         entity.setDate(LocalDate.now());
         entity.setCustomerId(customerId);
         entity.setStatus(OrderStatus.PENDING.code());
-        entity.setProduct(products.stream()
+        entity.setProducts(products.stream()
                 .map(ProductMapper::toEntity)
                 .collect(Collectors.toList()));
         return OrderMapper.toDto(repository.save(entity));
     }
 
     @Override
-    public OrderDto add(OrderDto order) {
-        return add(order.getCustomerId(), order.getProduct());
+    public OrderDto add(OrderDto orders) {
+        return add(orders.getCustomerId(), orders.getProducts());
     }
 
     @Override

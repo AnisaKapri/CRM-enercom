@@ -1,12 +1,10 @@
 package com.example.crmenercom.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter
+@Setter
+
 public class CompanyDto {
     private int id;
     private String fullName;

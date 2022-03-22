@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Order</title>
+    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link th:href="@{/styles/tables.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" th:src="@{/functions.js}"></script>
+</head>
+<body>
+<aside th:include="/fragments::sidebar"></aside>
+<h2>Create your order</h2>
+<form method="POST" th:action="@{/orders/add}" th:object="${order}">
+    <label for="customer">Choose a customer:</label><br>
+    <select id="customer" th:field="*{customerId}">
+        <option th:value="0" selected disabled></option>
+        <option th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}">[Customer]</option>
+    </select><br><br>
+
+    <label for="products">Add products:</label><br>
+    <div id="products" th:each="entry : ${order.productIds.entrySet()}">
+        <input th:id="|hidden${entry.key}|" type="hidden" th:value="${false}" th:field="*{productIds['__${entry.key}__']}">
+        <input th:id="${entry.key}" class="checkbox" type="checkbox" th:value="${true}" th:field="*{productIds['__${entry.key}__']}">
+        <span th:each="product:${products}">
+      <span th:if="${product.id == entry.key}">
+        <span th:text="${product.name}">[Product Name]</span>
+        <span th:text="|(${product.fullPrice})|">[Product Price]</span>
+      </span>
+    </span>
+    </div><br>
+
+    <input id="submit-form" type="submit" value="Submit" style="display: none;">
+</form>
+
+<input type="button" value=" Submit order" onclick="validate()"><br><br>
+<input type="button" value=" Go back" onclick="goToIndex()">
+
+<script type="text/javascript">
+    function validate() {
+        if (!document.getElementById("customer").value) {
+            alert("Please select one customer!");
+        } else if (!document.querySelectorAll('input[type=checkbox]:checked').length) {
+            alert("Orders can't be empty! Please select at least one item.");
+        } else {
+            for (let checkbox of document.getElementsByClassName("checkbox")) {
+                if (checkbox.checked) {
+                    const id = "hidden" + checkbox.getAttribute("id");
+                    document.getElementById(id).disabled = true;
+                }
+            }
+            document.getElementById("submit-form").click();
+        }
+    }
+</script>
+</body>
+</html>

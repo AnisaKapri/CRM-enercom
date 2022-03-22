@@ -15,7 +15,9 @@
     <description>CRM-enercom</description>
     <properties>
         <java.version>11</java.version>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>    <!-- SQL dialect -->
     </properties>
+
     <dependencies>
         <dependency> <!-- Spring Boot Starter Data JPA -->
             <groupId>org.springframework.boot</groupId>
@@ -63,13 +65,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
+        <dependency>  <!-- H2 database -->
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.197</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
+
+        <dependency><!-- Annnotations -->
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
@@ -84,6 +87,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.5.2</version>
             </plugin>
+
+
         </plugins>
     </build>
 

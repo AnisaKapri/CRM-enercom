@@ -39,9 +39,6 @@ public class Utils {
                 + str.substring(1).toLowerCase();
     }
 
-    public static String capAll(String str) {
-        return str.toUpperCase();
-    }
     public static String convertToLongDate(LocalDate localDate) {
         String[] months = {"January", "February", "March", "April", "May", "June",
                 "July", "August", "September", "October", "November", "December"};

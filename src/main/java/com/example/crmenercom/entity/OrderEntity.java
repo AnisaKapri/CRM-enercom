@@ -1,15 +1,17 @@
 package com.example.crmenercom.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
 @Entity
-@Builder
-@Table(name = "order")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,16 +26,6 @@ public class OrderEntity {
             inverseJoinColumns = { @JoinColumn(name = "product_id") }
     )
 
-    private List<ProductEntity> product;
+    private List<ProductEntity> products;
 
-    public OrderEntity(int id, LocalDate date, int customerId, int status, List<ProductEntity> product) {
-        this.id = id;
-        this.date = date;
-        this.customerId = customerId;
-        this.status = status;
-        this.product = product;
-    }
-
-    public OrderEntity() {
-    }
 }

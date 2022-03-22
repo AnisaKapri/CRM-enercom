@@ -1,9 +1,7 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.TechnologyDeployedDto;
-import com.example.crmenercom.entity.AddressEntity;
 import com.example.crmenercom.entity.TechnologyDeployedEntity;
-import com.example.crmenercom.mapper.AddressMapper;
 import com.example.crmenercom.mapper.TechnologyDeployedMapper;
 import com.example.crmenercom.repository.TechnologyDeployedRepository;
 import com.example.crmenercom.service.TechnologyDeployedService;

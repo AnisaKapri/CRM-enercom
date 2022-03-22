@@ -6,10 +6,12 @@ import org.hibernate.NonUniqueObjectException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 
 @Transactional
 public interface ProductService {
+
     Boolean contains(ProductDto product);
 
     List<ProductDto> selectAll();
@@ -18,18 +20,13 @@ public interface ProductService {
 
     Boolean isUnique(ProductDto product);
 
-    ProductEntity create(ProductEntity product);
-
-    ProductDto update(ProductDto current, ProductDto updated);
-
-    ProductDto overwrite(ProductDto product);
+    ProductDto add(ProductDto product) throws NonUniqueResultException;
 
     ProductDto delete(ProductDto product);
 
     ProductDto deleteById(Integer id);
 
-    Boolean approveById(Integer id);
+    ProductDto overwrite(ProductDto product);
 
-
-    void update(ProductDto updated); //KONTROLLOJE SE ESHTE GABIM
+    ProductDto update(ProductDto updated);
 }

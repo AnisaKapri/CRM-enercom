@@ -30,7 +30,7 @@ public class ClientMapper {
         dto.setOperator(entity.getOperator());
         dto.setTechnologyDeployed(entity.getTechnologyDeployed());
         dto.setContact(entity.getContact());
-        dto.setCustomerOfPCT(entity.getCustmerOfPCT());
+        dto.setCustomerOfPCT(entity.getCustomerOfPCT());
         dto.setRole(entity.getRole());
         dto.setContactedBy(entity.getContactedBy());
         dto.setCreated(entity.getCreated());

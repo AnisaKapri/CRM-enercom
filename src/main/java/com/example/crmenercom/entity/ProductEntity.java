@@ -1,16 +1,14 @@
 package com.example.crmenercom.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "products")
 public class ProductEntity {
@@ -22,16 +20,8 @@ public class ProductEntity {
     private Integer status;
     private String price;
 
-    @ManyToMany(mappedBy = "product")
-    private List<OrderEntity> order;
+    @ManyToMany(mappedBy = "products")
+    private List<OrderEntity> orders;
 
-    public ProductEntity() {
-    }
 
-    public ProductEntity(int id, String name, String price, List<OrderEntity> order) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.order = order;
-    }
 }

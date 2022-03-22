@@ -1,9 +1,7 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.ContactPersonDto;
-import com.example.crmenercom.entity.AddressEntity;
 import com.example.crmenercom.entity.ContactPersonEntity;
-import com.example.crmenercom.mapper.AddressMapper;
 import com.example.crmenercom.mapper.ContactPersonMapper;
 import com.example.crmenercom.repository.ContactPersonRepository;
 import com.example.crmenercom.service.ContactPersonService;

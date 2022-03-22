@@ -1,12 +1,8 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.CountryDto;
-import com.example.crmenercom.entity.AddressEntity;
 import com.example.crmenercom.entity.CountryEntity;
-import com.example.crmenercom.mapper.AddressMapper;
-import com.example.crmenercom.mapper.ClientMapper;
 import com.example.crmenercom.mapper.CountryMapper;
-import com.example.crmenercom.repository.ClientRepository;
 import com.example.crmenercom.repository.CountryRepository;
 import com.example.crmenercom.service.CountryService;
 import lombok.RequiredArgsConstructor;

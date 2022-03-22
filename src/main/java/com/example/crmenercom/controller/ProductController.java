@@ -5,6 +5,7 @@ import com.example.crmenercom.dto.UserDto;
 import com.example.crmenercom.entity.OrderEntity;
 import com.example.crmenercom.service.ProductService;
 import com.example.crmenercom.service.UserService;
+import com.example.crmenercom.util.OrderStatus;
 import com.example.crmenercom.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,12 +42,14 @@ public class ProductController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping({"/", ""})
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<ProductDto> products = productService.selectAll();
+        String[] statuses = OrderStatus.getAllStatuses();
         model.addAttribute("products", products);
         model.addAttribute("updateProduct", new ProductDto());
+        model.addAttribute("statuses", statuses);
         return PRODUCT_LIST;
     }
 
@@ -81,6 +84,7 @@ public class ProductController {
             model.addAttribute("nonUniqueItemError", Utils.ProductNotUnique(product));
             return FORM;
         }
+        getProductData(model, productService.add(product));
         return RESULT;
     }
 
@@ -102,9 +106,9 @@ public class ProductController {
 
 
 
-    private void getProductData(Model model, ProductDto product) {
-        List<OrderEntity> orders = product.getOrder();
-        model.addAttribute("product", product);
+    private void getProductData(Model model, ProductDto products) {
+        List<OrderEntity> orders = products.getOrders();
+        model.addAttribute("product", products);
 
         if (!orders.isEmpty()) {
             System.out.println(orders.size());
@@ -124,6 +128,8 @@ public class ProductController {
         ProductDto current = productService.findById(updated.getId());
         if (updated.getName() == null)
             updated.setName(current.getName());
+        if (updated.getStatus() == null)
+            updated.setStatus(current.getStatus());
         if (updated.getPrice() == null)
             updated.setPrice(current.getPrice());
     }

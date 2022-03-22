@@ -29,6 +29,14 @@ public class ClientServiceImpl implements ClientService {
                 .collect(Collectors.toList());
     }
 
+
+    @Override
+    public List<ClientEntity> findAll(){
+        return repository.findAll();
+    }
+
+
+
     @Override
     public ClientDto findById(Integer id) {
         return repository.findById(id)

@@ -3,8 +3,12 @@ package com.example.crmenercom.entity;
 import lombok.*;
 import javax.persistence.*;
 
-@Entity @Table(name = "users")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "users")
 public class UserEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +30,4 @@ public class UserEntity {
 
     */
 
-    public UserEntity(String firstName, String lastName, String email, String encode) {
-    }
 }

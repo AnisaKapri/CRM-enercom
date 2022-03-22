@@ -1,12 +1,10 @@
 package com.example.crmenercom.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+
 public class CountryDto {
     private int id;
     private String name;

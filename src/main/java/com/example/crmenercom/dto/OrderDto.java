@@ -1,18 +1,22 @@
 package com.example.crmenercom.dto;
 
+import com.example.crmenercom.util.Utils;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class OrderDto {
 
     private int id;
     private LocalDate date;
-    private int customerId;
+    private Integer customerId;
     private Integer status;
-    private List<ProductDto> product;
+    private List<ProductDto> products;
 
     public OrderDto() {}
 
@@ -21,7 +25,11 @@ public class OrderDto {
         date = o.date;
         customerId = o.customerId;
         status = o.status;
-        product = o.product;
+        products = o.products;
+    }
+
+    public String getLongDate() {
+        return Utils.convertToLongDate(date);
     }
 
 }

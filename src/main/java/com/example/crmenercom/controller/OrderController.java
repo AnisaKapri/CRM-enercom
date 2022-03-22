@@ -44,7 +44,7 @@ public class OrderController {
         this.productsService = productService;
     }
 
-    @GetMapping({"/list"})
+    @GetMapping({"/", ""})
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<OrderDto> orders = orderService.selectAll();
@@ -72,14 +72,14 @@ public class OrderController {
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable(value = "id") Integer id) {
         addLoggedInUser(model);
-        OrderDto order = orderService.findById(id);
-        if (order == null) {
+        OrderDto orders = orderService.findById(id);
+        if (orders == null) {
             model.addAttribute("error", Utils.ORDER_NOT_FOUND); // TODO: to be deleted
             return ERROR;
         } else {
-            UserDto customer = userService.findById(order.getCustomerId());
-            List<ProductDto> products = order.getProduct();
-            model.addAttribute("order", order);
+            UserDto customer = userService.findById(orders.getCustomerId());
+            List<ProductDto> products = orders.getProducts();
+            model.addAttribute("order", orders);
             model.addAttribute("customer", customer);
             return ORDER;
         }
@@ -99,10 +99,10 @@ public class OrderController {
     public String addOrder(Model model, @ModelAttribute(name = "order") OrderRequestDto order) {
         addLoggedInUser(model);
         List<ProductDto> products = new ArrayList<>();
-        Set<Integer> itemIds = order.getProductIds().keySet();
-        for (Integer itemId : itemIds)
-            if (order.getProductIds().get(itemId))
-                products.add(productsService.findById(itemId));
+        Set<Integer> productIds = order.getProductIds().keySet();
+        for (Integer productId : productIds)
+            if (order.getProductIds().get(productId))
+                products.add(productsService.findById(productId));
         Integer customerId = order.getCustomerId();
         OrderDto newOrder = orderService.add(customerId, products);
         UserDto customer = userService.findById(customerId);
@@ -115,6 +115,12 @@ public class OrderController {
     @RequestMapping(value = "/{id}/delete")
     public String deleteById(@PathVariable(value = "id") Integer id) {
         orderService.deleteById(id);
+        return "redirect:/orders";
+    }
+
+    @RequestMapping(value = "/{id}/approve")
+    public String approveById(@PathVariable(value = "id") Integer id){
+        orderService.approveById(id);
         return "redirect:/orders";
     }
 
