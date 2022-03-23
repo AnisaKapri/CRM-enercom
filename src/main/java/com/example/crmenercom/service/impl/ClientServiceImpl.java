@@ -6,11 +6,17 @@ import com.example.crmenercom.mapper.ClientMapper;
 import com.example.crmenercom.repository.ClientRepository;
 import com.example.crmenercom.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +25,8 @@ import java.util.stream.Collectors;
 
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientRepository repository;
+    @Autowired
+    private ClientRepository repository;
 
 
     @Override
@@ -71,4 +78,42 @@ public class ClientServiceImpl implements ClientService {
             return null;
         }
     }
+
+
+    @Override
+    public List<ClientEntity> getAllClients(){
+        return repository.findAll();
+    }
+
+    @Override
+    public void saveClient(ClientEntity client){
+        this.repository.save(client);
+    }
+
+    @Override
+    public ClientEntity getClientById(int id){
+        Optional<ClientEntity> optional = repository.findById(id);
+        ClientEntity client = null;
+        if(optional.isPresent()){
+            client = optional.get();
+        }else {
+            throw new RuntimeException("Client not found for id :: " + id);
+        }
+        return client;
+    }
+
+    @Override
+    public void deleteClientById(int id){
+        this.repository.deleteById(id);
+    }
+
+    @Override
+    public Page<ClientEntity> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+                Sort.by(sortField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        return this.repository.findAll(pageable);
+    }
+
 }

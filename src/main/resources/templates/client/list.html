@@ -21,63 +21,141 @@
 <aside th:include="/fragments::sidebar"></aside>
 <main class="align-items-center float-end">
     <p class="mb-5"></p>
-    <table id="products" class="table border-s">
-        <thead class="thead-dark">
-        <tr>
-            <td scope="col">#</td>
-            <td scope="col">Country</td>
-            <td scope="col">Company</td>
-            <td scope="col">Operator</td>
-            <td scope="col">Technology Deployed</td>
-            <td scope="col">Customer of PCT</td>
-            <td scope="col">Contact</td>
-            <td scope="col">Contact Details</td>
-            <td scope="col">Role</td>
-            <td scope="col">Contacted by</td>
+    <!--  <table id="products" class="table border-s">
+          <thead class="thead-dark">
+          <tr>
+              <td scope="col">#</td>
+              <td scope="col">Country</td>
+              <td scope="col">Company</td>
+              <td scope="col">Operator</td>
+              <td scope="col">Technology Deployed</td>
+              <td scope="col">Customer of PCT</td>
+              <td scope="col">Contact</td>
+              <td scope="col">Contact Details</td>
+              <td scope="col">Role</td>
+              <td scope="col">Contacted by</td>
 
+          </tr>
+          </thead>
+          <tr th:each="customer,stats:${customers}">
+              <td th:text="${stats.index+1}">ID</td>
+              <td th:text="${customer.country}">Country</td>
+              <td th:text="${customer.company}">Company</td>
+              <td th:text="${customer.operator}">Operator</td>
+              <td th:text="${customer.technologyDeployed}">Technology Deployed</td>
+              <td th:text="${customer.customerOfPCT}">Customer of PCT</td>
+              <td th:text="${customer.contact}">Contact</td>
+              <td th:text="${customer.contactDetails}">Contact Details</td>
+              <td th:text="${customer.role}">Role</td>
+              <td th:text="${customer.contactedBy}">Contacted by</td>
+
+
+              <td class="mx-2">
+                  <a th:attr="onclick=|editCnt('${customer.id}', '${customer.country}')|">
+                      <img class="mx-1" title="Edit country"
+                           src="https://img.icons8.com/ios-glyphs/30/000000/category.png" height="20" width="20"
+                           onmouseover="cntOn(this);" onmouseout="cntOff(this);"></a>
+
+                  <a th:attr="onclick=|editCompany('${customer.id}', '${customer.name}')|">
+                      <img class="mx-1" title="Rename company"
+                           src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
+                           onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
+
+                  <a th:attr="onclick=|deleteClient('${customer.id}', '${customer.name}')|">
+                      <img class="mx-1" title="Remove client"
+                           src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
+                           onmouseover="trashOn(this);" onmouseout="trashOff(this);"></a>
+              </td>
+          </tr>
+      </table>
+
+      <form id="updateCnt" th:method="post" th:action="@{/customers/update}" th:object="${updateClient}">
+          <input id="updateCnt-id" type="number" th:field="*{id}"/>
+          <input id="country" type="text" th:field="*{country}"/>
+      </form>
+      <form id="updateCompany" th:method="post" th:action="@{/customers/update}" th:object="${updateClient}">
+          <input id="updateName-id" type="number" th:field="*{id}"/>
+          <input id="company" type="text" th:field="*{company}"/>
+      </form> -->
+</main>
+<div class="container my-2">
+    <h1>Client List</h1>
+
+    <a th:href="@{/showNewClientForm}" class="btn btn-primary btn-sm mb-3"> Add Client </a>
+
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+                    Country</a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}">
+                    Company</a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                    Technology Deployed</a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                    Customer of PCT</a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                    Contact</a>
+            </th>
+            <th>
+                <a th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+                    Contacted By</a>
+            </th>
+            <th> Actions</th>
         </tr>
         </thead>
-        <tr th:each="customer,stats:${customers}">
-            <td th:text="${stats.index+1}">ID</td>
-            <td th:text="${customer.country}">Country</td>
-            <td th:text="${customer.company}">Company</td>
-            <td th:text="${customer.operator}">Operator</td>
-            <td th:text="${customer.technologyDeployed}">Technology Deployed</td>
-            <td th:text="${customer.customerOfPCT}">Customer of PCT</td>
-            <td th:text="${customer.contact}">Contact</td>
-            <td th:text="${customer.contactDetails}">Contact Details</td>
-            <td th:text="${customer.role}">Role</td>
-            <td th:text="${customer.contactedBy}">Contacted by</td>
+        <tbody>
+        <tr th:each="client : ${listClients}">
+            <td th:text="${client.country}"></td>
+            <td th:text="${client.company}"></td>
+            <td th:text="${client.technologyDeployed}"></td>
+            <td th:text="${client.customerOfPCT}"></td>
+            <td th:text="${client.contact}"></td>
+            <td th:text="${client.role}"></td>
+            <td th:text="${client.contactedBy}"></td>
 
-
-            <td class="mx-2">
-                <a th:attr="onclick=|editCnt('${customer.id}', '${customer.country}')|">
-                    <img class="mx-1" title="Edit country"
-                         src="https://img.icons8.com/ios-glyphs/30/000000/category.png" height="20" width="20"
-                         onmouseover="cntOn(this);" onmouseout="cntOff(this);"></a>
-
-                <a th:attr="onclick=|editCompany('${customer.id}', '${customer.name}')|">
-                    <img class="mx-1" title="Rename company"
-                         src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
-                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
-
-                <a th:attr="onclick=|deleteClient('${customer.id}', '${customer.name}')|">
-                    <img class="mx-1" title="Remove client"
-                         src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
-                         onmouseover="trashOn(this);" onmouseout="trashOff(this);"></a>
+            <td><a th:href="@{/showFormForUpdate/{id}(id=${client.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteClient/{id}(id=${client.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
+        </tbody>
     </table>
 
-    <form id="updateCnt" th:method="post" th:action="@{/customers/update}" th:object="${updateClient}">
-        <input id="updateCnt-id" type="number" th:field="*{id}"/>
-        <input id="country" type="text" th:field="*{country}"/>
-    </form>
-    <form id="updateCompany" th:method="post" th:action="@{/customers/update}" th:object="${updateClient}">
-        <input id="updateName-id" type="number" th:field="*{id}"/>
-        <input id="company" type="text" th:field="*{company}"/>
-    </form>
-</main>
+    <div th:if="${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]
+            </div>
+            <div class="col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}"
+                           th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+            </div>
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                <span th:unless="${currentPage < totalPages}">Next</span>
+            </div>
+
+            <div class="col-sm-1">
+                <a th:if="${currentPage < totalPages}"
+                   th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                <span th:unless="${currentPage < totalPages}">Last</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript" th:inline="javascript">
 
@@ -106,6 +184,7 @@
             'orderable': false,
         }]
     }));
+
     function editName(id, name) {
         swal({
             text: `Rename client '${name}'?`,
@@ -130,6 +209,7 @@
             $('#updateName').submit();
         });
     }
+
     function editCnt(id, country) {
         swal({
             text: `Edit country of client '${name}'?`,
@@ -145,7 +225,7 @@
             console.log(selected);
             $('#updateCnt-id').val(id);
             $('#country').val(selected);
-             $('#updateCnt').submit();
+            $('#updateCnt').submit();
         });
     }
 
