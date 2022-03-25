@@ -91,7 +91,7 @@ public class ClientController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("listClients", listClients);
-        return "index";
+        return "list";
     }
 
    /* SAKTE

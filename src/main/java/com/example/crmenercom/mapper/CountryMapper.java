@@ -10,7 +10,7 @@ public class CountryMapper {
         CountryEntity entity = new CountryEntity();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        entity.setCapital(dto.getCapital());
+        entity.setNetworkOperator(dto.getNetworkOperator());
         return entity;
     }
 
@@ -19,7 +19,7 @@ public class CountryMapper {
         CountryDto dto = new CountryDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCapital(entity.getCapital());
+        dto.setNetworkOperator(entity.getNetworkOperator());
         return dto;
     }
 }

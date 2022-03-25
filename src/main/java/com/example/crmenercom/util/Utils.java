@@ -1,6 +1,7 @@
 package com.example.crmenercom.util;
 
 import com.example.crmenercom.dto.CountryDto;
+import com.example.crmenercom.dto.NetworkOperatorDto;
 import com.example.crmenercom.dto.ProductDto;
 
 import java.time.LocalDate;
@@ -17,12 +18,18 @@ public class Utils {
             EMAIL_NOT_FOUND = "This email doesn't exist!",
             ORDER_NOT_FOUND = "Requested order could not be found!",
             PRODUCT_NOT_FOUND = "Requested product could not be found!",
+            COUNTRY_NOT_FOUND = "Requested country could not be found!",
             CLIENT_NOT_FOUND = "Requested client could not be found!",
+            NETOP_HAS_COUNTRIES = "Network operator already has countries and cannot be deleted!",
             INVALID_PASS = "Password is incorrect!";
 
 
     public static String ProductNotUnique(ProductDto product) {
         return String.format("Product \"%s\" already exists!", product.getName());
+    }
+
+    public static String NetOpNotUnique(NetworkOperatorDto networkOperator) {
+        return String.format("Network Operator \"%s\" already exist!", networkOperator.getName());
     }
 
     public static String CntNotUnique(CountryDto country) {

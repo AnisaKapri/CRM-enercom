@@ -2,43 +2,91 @@ package com.example.crmenercom.controller;
 
 
 import com.example.crmenercom.dto.CountryDto;
-import com.example.crmenercom.dto.UpdateDto;
+import com.example.crmenercom.dto.NetworkOperatorDto;
 import com.example.crmenercom.service.CountryService;
-import com.example.crmenercom.service.ProductService;
+import com.example.crmenercom.service.NetworkOperatorService;
+import com.example.crmenercom.service.UserService;
 import com.example.crmenercom.util.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/countries")
-
 public class CountryController {
 
     private static final String
-            CNT_LIST = "country/list";
+            COUNTRY_LIST = "country/list",
+            COUNTRY_BY_ID = "country/id",
+            RESULT = "country/result",
+            ERROR = "error";
 
+    private final AuthController auth;
     private final CountryService countryService;
-    private final ProductService productService;
+    private final NetworkOperatorService networkOperatorService;
+    private final UserService userService;
 
 
-    public CountryController(CountryService countryService, ProductService productService) {
+    @Autowired
+    public CountryController(AuthController auth, CountryService countryService, NetworkOperatorService networkOperatorService, UserService userService) {
+        this.auth = auth;
         this.countryService = countryService;
-        this.productService = productService;
+        this.networkOperatorService = networkOperatorService;
+        this.userService = userService;
     }
 
-    @GetMapping("/readCountry")
-    public String getById(@ModelAttribute("country") CountryDto countryDto, BindingResult bindingResult, Model model) {
-        countryService.getById(countryDto.getId());
-        return "index";  // NDRYSHO
+    private void addLoggedInUser(Model model) {
+        model.addAttribute("user", auth.getLoggedInUser());
+    }
+
+    @GetMapping({"/", ""})
+    public String getAll(Model model) {
+        addLoggedInUser(model);
+        List<CountryDto> countries = countryService.selectAll();
+        List<NetworkOperatorDto> networkOperators = networkOperatorService.selectAll();
+        model.addAttribute("countries", countries);
+        model.addAttribute("networkOperators", networkOperators);
+        model.addAttribute("updateCountries", new CountryDto());
+        return COUNTRY_LIST;
     }
 
 
+    @GetMapping("/{id}")
+    public String getById(Model model, @PathVariable(value = "id") int id) {
+        CountryDto country = countryService.findById(id);
+        if (country == null) {
+            model.addAttribute("error", Utils.COUNTRY_NOT_FOUND);
+            return ERROR;
+        } else {
+            addLoggedInUser(model);
+            // getCountryData(model, country);
+            return COUNTRY_BY_ID;
+        }
+    }
 
-    @DeleteMapping("/deleteCountry/{id}")
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute(name = "updateCountry") CountryDto updated) {
+        fillOut(updated);
+        countryService.update(updated);
+        return "redirect:/countries";
+    }
+
+    @RequestMapping(value = "/{id}/delete")
     public String deleteById(@PathVariable(value = "id") int id) {
         countryService.deleteById(id);
-        return "index";
+        return "redirect:/countries";
     }
+
+    private void fillOut(CountryDto updated) {
+        CountryDto current = countryService.findById(updated.getId());
+        if (updated.getName() == null)
+            updated.setName(current.getName());
+        if (updated.getNetworkOperator() == null)
+            updated.setNetworkOperator(current.getNetworkOperator());
+    }
+
 }
