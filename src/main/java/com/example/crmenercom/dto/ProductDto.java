@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 public class ProductDto {
 
-    private Integer id;
+    private Long id;
     @Pattern(regexp = Utils.MULT_NAMES_REGEX, message = "Product name is invalid!")
     private String name;
     private Integer status;

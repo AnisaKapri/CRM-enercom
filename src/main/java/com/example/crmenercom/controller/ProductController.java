@@ -53,8 +53,8 @@ public class ProductController {
         return PRODUCT_LIST;
     }
 
-    @GetMapping("/{id}") // TODO: to be deleted
-    public String getById(Model model, @PathVariable(value = "id") Integer id) {
+    @GetMapping("/{id}")
+    public String getById(Model model, @PathVariable(value = "id") Long id) {
         ProductDto product = productService.findById(id);
         if (product == null) {
             model.addAttribute("error", Utils.PRODUCT_NOT_FOUND);
@@ -66,14 +66,14 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/create") // TODO: to be deleted
+    @GetMapping("/create")
     public String createForm(Model model) {
         addLoggedInUser(model);
         model.addAttribute("product", new ProductDto());
         return FORM;
     }
 
-   @PostMapping("/add") //
+   @PostMapping("/add")
     public String add(@ModelAttribute(name = "product") @Valid ProductDto product,
                       BindingResult result, Model model) {
         addLoggedInUser(model);
@@ -88,8 +88,6 @@ public class ProductController {
         return RESULT;
     }
 
-
-
     @PostMapping("/update")
     public String update(@ModelAttribute(name = "updateProduct") ProductDto updated) {
         fillOut(updated);
@@ -99,12 +97,10 @@ public class ProductController {
 
 
    @RequestMapping(value = "/{id}/delete")
-    public String deleteById(@PathVariable(value = "id") Integer id) {
+    public String deleteById(@PathVariable(value = "id") Long id) {
         productService.deleteById(id);
         return "redirect:/products";
     }
-
-
 
     private void getProductData(Model model, ProductDto products) {
         List<OrderEntity> orders = products.getOrders();
@@ -112,9 +108,9 @@ public class ProductController {
 
         if (!orders.isEmpty()) {
             System.out.println(orders.size());
-            Map<Integer, UserDto> customers = new HashMap<>();
+            Map<Long, UserDto> customers = new HashMap<>();
             for (OrderEntity order : orders) {
-                Integer customerId = order.getCustomerId();
+                Long customerId = order.getCustomerId();
                 UserDto customer = userService.findById(customerId);
                 customers.put(customerId, customer);
             }

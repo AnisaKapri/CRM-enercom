@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public enum ProductStatus {
 
-    ON_STOCK(1, "OnStock"),
+    STOCK(1, "Stock"),
     SOLD(2, "Sold");
 
     private final Integer code;

@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class UserEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String role;
     private String firstName;
     private String lastName;
@@ -21,13 +21,5 @@ public class UserEntity {
     private String password;
 
 
-   /* @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-
-    */
 
 }

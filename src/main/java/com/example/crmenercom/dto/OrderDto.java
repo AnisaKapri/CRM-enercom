@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 public class OrderDto {
 
-    private int id;
+    private Long id;
     private LocalDate date;
-    private Integer customerId;
+    private Long customerId;
     private Integer status;
     private List<ProductDto> products;
 

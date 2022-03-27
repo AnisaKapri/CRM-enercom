@@ -7,13 +7,12 @@ import java.util.UUID;
 
 public interface CompanyService {
 
-    CompanyDto getById(int id);
+    CompanyDto getById(Long id);
 
     CompanyDto create(CompanyDto companyDto);
 
 
     CompanyDto update(CompanyDto companyDto);
 
-
-    CompanyDto deleteById(int id);
+    CompanyDto deleteById(Long id);
 }

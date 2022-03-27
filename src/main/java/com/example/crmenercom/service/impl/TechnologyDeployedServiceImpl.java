@@ -19,7 +19,7 @@ public class TechnologyDeployedServiceImpl  implements TechnologyDeployedService
     private final TechnologyDeployedRepository repository;
 
     @Override
-    public TechnologyDeployedDto getById(int id) {
+    public TechnologyDeployedDto getById(Long id) {
         return TechnologyDeployedMapper.toDto(repository.findById(id).orElse(null));
     }
 
@@ -34,7 +34,7 @@ public class TechnologyDeployedServiceImpl  implements TechnologyDeployedService
     }
 
     @Override
-    public TechnologyDeployedDto deleteById(int id) {
+    public TechnologyDeployedDto deleteById(Long id) {
         TechnologyDeployedEntity entity = repository.findById(id).orElse(null);
         if (entity == null) return null;
         repository.delete(entity);

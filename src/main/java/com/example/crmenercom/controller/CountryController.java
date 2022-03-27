@@ -3,16 +3,20 @@ package com.example.crmenercom.controller;
 
 import com.example.crmenercom.dto.CountryDto;
 import com.example.crmenercom.dto.NetworkOperatorDto;
+import com.example.crmenercom.dto.UpdateDto;
 import com.example.crmenercom.service.CountryService;
 import com.example.crmenercom.service.NetworkOperatorService;
-import com.example.crmenercom.service.UserService;
 import com.example.crmenercom.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/countries")
@@ -20,22 +24,19 @@ public class CountryController {
 
     private static final String
             COUNTRY_LIST = "country/list",
-            COUNTRY_BY_ID = "country/id",
-            RESULT = "country/result",
-            ERROR = "error";
+            NETOP_LIST = "networkOperator/list";
 
     private final AuthController auth;
     private final CountryService countryService;
     private final NetworkOperatorService networkOperatorService;
-    private final UserService userService;
 
 
     @Autowired
-    public CountryController(AuthController auth, CountryService countryService, NetworkOperatorService networkOperatorService, UserService userService) {
+    public CountryController(AuthController auth, CountryService countryService, NetworkOperatorService networkOperatorService) {
         this.auth = auth;
         this.countryService = countryService;
         this.networkOperatorService = networkOperatorService;
-        this.userService = userService;
+
     }
 
     private void addLoggedInUser(Model model) {
@@ -46,47 +47,56 @@ public class CountryController {
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<CountryDto> countries = countryService.selectAll();
-        List<NetworkOperatorDto> networkOperators = networkOperatorService.selectAll();
         model.addAttribute("countries", countries);
-        model.addAttribute("networkOperators", networkOperators);
-        model.addAttribute("updateCountries", new CountryDto());
         return COUNTRY_LIST;
     }
 
 
-    @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable(value = "id") int id) {
-        CountryDto country = countryService.findById(id);
-        if (country == null) {
-            model.addAttribute("error", Utils.COUNTRY_NOT_FOUND);
-            return ERROR;
-        } else {
-            addLoggedInUser(model);
-            // getCountryData(model, country);
-            return COUNTRY_BY_ID;
+    @GetMapping("/{name}")
+    public String getNetworkOperators(@PathVariable(value = "name") String country, Model model) {
+        addLoggedInUser(model);
+        List<NetworkOperatorDto> networkOperators = networkOperatorService.selectAllByCountry(country);
+        List<CountryDto> countries = new ArrayList<>();
+        countries.add(countryService.findByName(country));
+        model.addAttribute("networkOperators", networkOperators);
+        model.addAttribute("updateNetworkOperator", new NetworkOperatorDto());
+        model.addAttribute("countries", countries);
+        return NETOP_LIST;
+    }
+
+    @PostMapping("/add")
+    public String add(@ModelAttribute(name = "newCnt") @Valid CountryDto newCnt,
+                      BindingResult result, Model model) {
+        addLoggedInUser(model);
+        if (result.hasErrors()) return COUNTRY_LIST;
+        if (countryService.exists(newCnt)) {
+            model.addAttribute("nonUniqueCntError", Utils.CntNotUnique(newCnt));
+        } else { // else add the new category
+            countryService.add(newCnt);
         }
+        return getAll(model);
     }
 
 
     @PostMapping("/update")
-    public String update(@ModelAttribute(name = "updateCountry") CountryDto updated) {
-        fillOut(updated);
-        countryService.update(updated);
+    public String update(@ModelAttribute(name = "updateCnt") UpdateDto updateCnt,
+                         BindingResult result, Model model) {
+        if (result.hasErrors()) return COUNTRY_LIST;
+        CountryDto currentCnt = new CountryDto(updateCnt.getCurrent());
+        CountryDto updatedCnt = new CountryDto(updateCnt.getUpdated());
+        if (countryService.exists(updatedCnt)) {
+            model.addAttribute(("nonUniqueCntError"), Utils.CntNotUnique(currentCnt));
+        } else {
+            countryService.add(updatedCnt);
+            networkOperatorService.updateCountry(currentCnt, updatedCnt);
+            countryService.delete(currentCnt);
+        }
         return "redirect:/countries";
     }
 
-    @RequestMapping(value = "/{id}/delete")
-    public String deleteById(@PathVariable(value = "id") int id) {
-        countryService.deleteById(id);
+    @PostMapping("/delete")
+    public String delete(@ModelAttribute(name = "deleteCnt") CountryDto deleteCnt) {
+        countryService.delete(deleteCnt);
         return "redirect:/countries";
     }
-
-    private void fillOut(CountryDto updated) {
-        CountryDto current = countryService.findById(updated.getId());
-        if (updated.getName() == null)
-            updated.setName(current.getName());
-        if (updated.getNetworkOperator() == null)
-            updated.setNetworkOperator(current.getNetworkOperator());
-    }
-
 }

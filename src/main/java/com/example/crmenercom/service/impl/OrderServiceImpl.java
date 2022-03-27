@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> selectAllFromUser(Integer id) {
+    public List<OrderDto> selectAllFromUser(Long id) {
         return repository.findAll()
                 .stream().map(OrderMapper::toDto)
                 .filter(order -> order.getCustomerId().equals(id))
@@ -45,14 +45,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto findById(Integer id) {
+    public OrderDto findById(Long id) {
         return repository.findById(id)
                 .map(OrderMapper::toDto)
                 .orElse(null);
     }
 
     @Override
-    public OrderDto add(Integer customerId, List<ProductDto> products) {
+    public OrderDto add(Long customerId, List<ProductDto> products) {
         OrderEntity entity = new OrderEntity();
         entity.setDate(LocalDate.now());
         entity.setCustomerId(customerId);
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Boolean approveById(Integer id) {
+    public Boolean approveById(Long id) {
         OrderDto order = findById(id);
         if (order != null && Objects.equals(order.getStatus(), OrderStatus.PENDING.code())) {
             OrderDto updated = new OrderDto(order);
@@ -88,7 +88,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto deleteById(Integer id) {
+    public OrderDto deleteById(Long id) {
         OrderEntity order = repository.findById(id).orElse(null);
         if (order != null) {
             OrderDto dto = OrderMapper.toDto(order);

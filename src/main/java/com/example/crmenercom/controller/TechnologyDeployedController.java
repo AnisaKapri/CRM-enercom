@@ -35,7 +35,7 @@ public class TechnologyDeployedController {
     }
 
     @DeleteMapping("/deleteTechnologyDeployed/{id}")
-    public String deleteById(@PathVariable (value = "id") int id){
+    public String deleteById(@PathVariable (value = "id") Long id){
         technologyDeployedService.deleteById(id);
         return "index";
     }

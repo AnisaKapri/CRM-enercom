@@ -6,21 +6,23 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClientDto {
-    private int id;
+    private Long id;
     private String country;
     private String company;
     private String operator;
     private String technologyDeployed;
-    private boolean customerOfPCT;
+    private String customerOfPCT;
     private String contact;
     private String role;
     private String contactedBy;
 
     private LocalDateTime created;
 
-    public boolean getCustomerOfPCT() {
-        return false;
+    public ClientDto(String company) {
+        this.company = company;
     }
 
 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Operator List</title>
+    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link th:href="@{/styles/tables.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" th:src="@{/functions.js}"></script>
+</head>
+<body>
+<aside th:include="/fragments::sidebar"></aside>
+<main class="align-items-center float-end">
+    <p class="mb-5"></p>
+    <table id="items" class="table border-s">
+        <thead class="thead-dark">
+        <tr>
+            <td scope="col">#</td>
+            <td scope="col">Name</td>
+            <td scope="col">Country</td>
+            <td scope="col">Actions</td>
+        </tr>
+        </thead>
+        <tr th:each="networkOperator,stats:${networkOperators}">
+            <td th:text="${stats.index+1}">ID</td>
+            <td th:text="${networkOperator.name}">Network Operator</td>
+            <td th:text="${networkOperator.country.name}">Country</td>
+            <td class="mx-2">
+                <a th:attr="onclick=|editName('${networkOperator.id}', '${networkOperator.name}')|">
+                    <img class="mx-1" title="Rename network operator"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
+                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
+                <a th:attr="onclick=|editCnt('${networkOperator.id}', '${networkOperator.name}', '${networkOperator.country}')|">
+                    <img class="mx-1" title="Edit country"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/category.png" height="20" width="20"
+                         onmouseover="cntOn(this);" onmouseout="cntOff(this);"></a>
+                <a th:attr="onclick=|deleteNetworkOperator('${networkOperator.id}', '${networkOperator.name}')|">
+                    <img class="mx-1" title="Remove network operator"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
+                         onmouseover="trashOn(this);" onmouseout="trashOff(this);"></a>
+            </td>
+        </tr>
+    </table>
+    <form id="updateName" th:method="post" th:action="@{/networkOperators/update}" th:object="${updateNetworkOperator}">
+        <input id="updateName-id" type="number" th:field="*{id}"/>
+        <input id="name" type="text" th:field="*{name}"/>
+    </form>
+    <form id="updateCnt" th:method="post" th:action="@{/networkOperators/update}" th:object="${updateNetworkOperator}">
+        <input id="updateCnt-id" type="number" th:field="*{id}"/>
+        <input id="country" type="text" th:field="*{country}"/>
+    </form>
+</main>
+
+<script type="text/javascript" th:inline="javascript">
+
+    function createDropdown(selected) {
+        const dropdown = document.createElement('select');
+        dropdown.setAttribute('name', 'updated');
+        for (let cnt of [[${countries}]]) {
+            let option = document.createElement('option');
+            option.setAttribute('value', cnt.name);
+            option.innerHTML = cnt.name;
+            if (cnt.name === selected)
+                option.setAttribute('selected', '');
+            dropdown.insertAdjacentElement('beforeend', option);
+        }
+        return dropdown;
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(() => $('#networkOperators').DataTable({
+        'info': false,
+        'columnDefs': [{
+            'targets': [4],
+            'searchable': false,
+            'orderable': false,
+        }]
+    }));
+
+    function editName(id, name) {
+        swal({
+            text: `Rename network operator '${name}'?`,
+            content: {
+                element: "input",
+                attributes: {
+                    value: name,
+                    type: "text",
+                }
+            },
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Rename',
+                    closeModal: false,
+                }
+            },
+        }).then(updated => {
+            if (!updated) throw null;
+            $('#updateName-id').val(id);
+            $('#name').val(updated);
+            $('#updateName').submit();
+        });
+    }
+    function editCnt(id, name, country) {
+        swal({
+            text: `Edit country of network operator '${name}'?`,
+            content: createDropdown(country),
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Submit',
+                    closeModal: false,
+                }
+            },
+        }).then(selected => {
+            console.log(selected);
+            $('#updateCnt-id').val(id);
+            $('#country').val(selected);
+            // $('#updateCtg').submit();
+        });
+    }
+
+    function deleteNetworkOperator(id, name) {
+        swal({
+            title: 'Are you sure?',
+            text: `'${name}' will also be removed.`,
+            icon: 'warning',
+            buttons: [true, 'Delete'],
+            dangerMode: true,
+        }).then(deleted => {
+            if (deleted) goTo(`/networkOperators/${id}/delete`)
+        });
+    }
+</script>
+</body>
+</html>

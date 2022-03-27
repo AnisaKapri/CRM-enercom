@@ -18,7 +18,7 @@ public class SalesQuantityServiceImpl implements SalesQuantityService {
     private final SalesQuantityRepository repository;
 
     @Override
-    public SalesQuantityDto getById(int id) {
+    public SalesQuantityDto getById(Long id) {
         return SalesQuantityMapper.toDto(repository.findById(id).orElse(null));
     }
 
@@ -33,7 +33,7 @@ public class SalesQuantityServiceImpl implements SalesQuantityService {
     }
 
     @Override
-    public SalesQuantityDto deleteById(int id) {
+    public SalesQuantityDto deleteById(Long id) {
         SalesQuantityEntity entity = repository.findById(id).orElse(null);
         if (entity == null) return null;
         repository.delete(entity);

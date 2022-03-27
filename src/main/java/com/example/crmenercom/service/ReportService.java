@@ -5,7 +5,7 @@ import com.example.crmenercom.dto.ReportDto;
 import java.util.UUID;
 
 public interface ReportService {
-    ReportDto getById(int id);
+    ReportDto getById(Long id);
 
     ReportDto create(ReportDto reportDto);
 
@@ -13,5 +13,5 @@ public interface ReportService {
     ReportDto update(ReportDto reportDto);
 
 
-    ReportDto deleteById(int id);
+    ReportDto deleteById(Long id);
 }

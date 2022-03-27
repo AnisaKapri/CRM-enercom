@@ -16,7 +16,7 @@ public interface ProductService {
 
     List<ProductDto> selectAll();
 
-    ProductDto findById(Integer id);
+    ProductDto findById(Long id);
 
     Boolean isUnique(ProductDto product);
 
@@ -24,7 +24,7 @@ public interface ProductService {
 
     ProductDto delete(ProductDto product);
 
-    ProductDto deleteById(Integer id);
+    ProductDto deleteById(Long id);
 
     ProductDto overwrite(ProductDto product);
 

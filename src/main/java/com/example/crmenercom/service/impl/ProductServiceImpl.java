@@ -1,6 +1,7 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.ProductDto;
+import com.example.crmenercom.entity.ProductEntity;
 import com.example.crmenercom.mapper.ProductMapper;
 import com.example.crmenercom.repository.ProductRepository;
 import com.example.crmenercom.service.ProductService;
@@ -30,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findById(Integer id) {
+    public ProductDto findById(Long id) {
         return repository.findById(id)
                 .map(ProductMapper::toDto)
                 .orElse(null);
@@ -74,18 +75,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto deleteById(Integer id) {
-        return delete(findById(id));
-      /*  ProductEntity product = repository.findById(id).orElse(null);
+    public ProductDto deleteById(Long id) {
+        ProductEntity product = repository.findById(id).orElse(null);
         if (product != null) {
             ProductDto dto = ProductMapper.toDto(product);
             repository.delete(product);
             return dto;
         } else {
             return null;
-        }
 
-       */
+        }
 
     }
 

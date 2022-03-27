@@ -6,6 +6,6 @@ import lombok.*;
 @Setter
 
 public class SalesQuantityDto {
-    private int id;
+    private Long id;
     private int numberOfSales;
 }

@@ -18,7 +18,7 @@ public class ReportServiceImpl implements ReportService {
     private final ReportRepository repository;
 
     @Override
-    public ReportDto getById(int id) {
+    public ReportDto getById(Long id) {
         return ReportMapper.toDto(repository.findById(id).orElse(null));
     }
 
@@ -33,7 +33,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ReportDto deleteById(int id) {
+    public ReportDto deleteById(Long id) {
         ReportEntity entity = repository.findById(id).orElse(null);
         if (entity == null) return null;
         repository.delete(entity);

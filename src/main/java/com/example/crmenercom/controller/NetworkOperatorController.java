@@ -2,9 +2,9 @@ package com.example.crmenercom.controller;
 
 import com.example.crmenercom.dto.CountryDto;
 import com.example.crmenercom.dto.NetworkOperatorDto;
-import com.example.crmenercom.dto.UpdateDto;
 import com.example.crmenercom.service.CountryService;
 import com.example.crmenercom.service.NetworkOperatorService;
+import com.example.crmenercom.service.UserService;
 import com.example.crmenercom.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,23 +16,29 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("networkOperators")
+@RequestMapping("/networkOperators")
 public class NetworkOperatorController {
 
     private static final String
             NETOP_LIST = "networkOperator/list",
-            COUNTRY_LIST = "country/list";
+            NETOP_BY_ID = "country/id",
+            RESULT = "networkOperator/result",
+            FORM = "networkOperator/form",
+            ERROR = "error";
 
     private final AuthController auth;
     private final NetworkOperatorService networkOperatorService;
+    private final UserService userService;
     private final CountryService countryService;
 
     @Autowired
-    public NetworkOperatorController(AuthController auth, NetworkOperatorService networkOperatorService, CountryService countryService) {
+    public NetworkOperatorController(AuthController auth, NetworkOperatorService networkOperatorService, UserService userService, CountryService countryService) {
         this.auth = auth;
         this.networkOperatorService = networkOperatorService;
+        this.userService = userService;
         this.countryService = countryService;
     }
+
 
     private void addLoggedInUser(Model model) {
         model.addAttribute("user", auth.getLoggedInUser());
@@ -43,55 +49,69 @@ public class NetworkOperatorController {
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<NetworkOperatorDto> networkOperators = networkOperatorService.selectAll();
-        for (NetworkOperatorDto netOp : networkOperators)
-            netOp.setNumOfCountries(countryService.getNumOfCountries(netOp));
-        model.addAttribute("updateNetOp", new UpdateDto());
-        model.addAttribute("deleteNetOp", new NetworkOperatorDto());
+        List<CountryDto> countries = countryService.selectAll();
         model.addAttribute("networkOperators", networkOperators);
+        model.addAttribute("countries", countries);
+        model.addAttribute("updateNetworkOperator", new NetworkOperatorDto());
         return NETOP_LIST;
     }
 
-    @GetMapping("$/{name}")
-    private String getCountries(@PathVariable(value = "name") String networkOperator, Model model) {
+    @GetMapping("/{id}")
+    public String getById(Model model, @PathVariable(value = "id") Long id) {
+        NetworkOperatorDto networkOperator = networkOperatorService.findById(id);
+        if (networkOperator == null) {
+            model.addAttribute("error", Utils.NETOP_NOT_FOUND);
+            return ERROR;
+        } else {
+            addLoggedInUser(model);
+            model.addAttribute("networkOperator", networkOperator);
+            return NETOP_BY_ID;
+        }
+    }
+
+
+    @GetMapping("/create")
+    public String createForm(Model model) {
         addLoggedInUser(model);
-        List<CountryDto> countries = countryService.selectAllByNetworkOperator(networkOperator);
+        List<CountryDto> countries = countryService.selectAll();
         model.addAttribute("countries", countries);
-        model.addAttribute("updateCountries", new UpdateDto());
-        return COUNTRY_LIST;
+        model.addAttribute("networkOperator", new NetworkOperatorDto());
+        return FORM;
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute(name = "newNetOp") @Valid NetworkOperatorDto newNetOp,
+    public String add(@ModelAttribute(name = "item") @Valid NetworkOperatorDto networkOperator,
                       BindingResult result, Model model) {
         addLoggedInUser(model);
-        if (result.hasErrors()) return NETOP_LIST;
-        if (networkOperatorService.exist(newNetOp)) {
-            model.addAttribute("nonUniqueNetOpError", Utils.NetOpNotUnique(newNetOp));
-        } else {
-            networkOperatorService.add(newNetOp);
+        if (result.hasErrors()) return FORM;
+
+        if (networkOperatorService.isUnique(networkOperator)) {
+            model.addAttribute("countries", countryService.selectAll());
+            model.addAttribute("nonUniqueItemError", Utils.NetOpNotUnique(networkOperator));
+            return FORM;
         }
-        return getAll(model);
+        model.addAttribute("networkOperator", networkOperatorService.add(networkOperator));
+        return RESULT;
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute(name = "updateNetOp") UpdateDto updateNetOp,
-                         BindingResult result, Model model) {
-        if (result.hasErrors()) return NETOP_LIST;
-        NetworkOperatorDto currentNetOp = new NetworkOperatorDto(updateNetOp.getCurrent());
-        NetworkOperatorDto updatedNetOp = new NetworkOperatorDto(updateNetOp.getUpdated());
-        if (networkOperatorService.exist(updatedNetOp)) {
-            model.addAttribute("nonUniqueNetOpError", Utils.NetOpNotUnique(currentNetOp));
-        } else {
-            networkOperatorService.add(updatedNetOp);
-            countryService.updateNetworkOperator(currentNetOp, updatedNetOp);
-            networkOperatorService.delete(currentNetOp);
-        }
+    public String update(@ModelAttribute(name = "updateNetworkOperator") NetworkOperatorDto updated) {
+        fillOut(updated);
+        networkOperatorService.update(updated);
         return "redirect:/networkOperators";
     }
 
-    @PostMapping("/delete")
-    private String delete(@ModelAttribute(name = "deleteNetOp") NetworkOperatorDto deleteNetOp) {
-        networkOperatorService.delete(deleteNetOp);
+    @RequestMapping(value = "/{id}/delete")
+    public String deleteById(@PathVariable(value = "id") Long id) {
+        networkOperatorService.deleteById(id);
         return "redirect:/networkOperators";
+    }
+
+    private void fillOut(NetworkOperatorDto updated) {
+        NetworkOperatorDto current = networkOperatorService.findById(updated.getId());
+        if (updated.getName() == null)
+            updated.setName(current.getName());
+        if (updated.getCountry() == null)
+            updated.setCountry(current.getCountry());
     }
 }

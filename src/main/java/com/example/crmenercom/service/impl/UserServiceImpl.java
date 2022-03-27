@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findById(Integer id) {
+    public UserDto findById(Long id) {
         return repository.findById(id)
                 .map(UserMapper::toDto)
                 .orElse(null);
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto deleteById(Integer id) {
+    public UserDto deleteById(Long id) {
         UserEntity user = repository.findById(id).orElse(null);
         if (user != null) {
             repository.delete(user);

@@ -38,5 +38,7 @@ const editOn = el => paintIcon(el, edit, teal);
 const editOff = el => paintIcon(el, edit, black);
 const cntOn = el => paintIcon(el, cnt, teal);
 const cntOff = el => paintIcon(el, cnt, black);
+const clientOn = el => paintIcon(el, cnt, teal);
+const clientOff = el => paintIcon(el, cnt, black);
 const priceOn = el => paintIcon(el, price, teal);
 const priceOff = el => paintIcon(el, price, black);

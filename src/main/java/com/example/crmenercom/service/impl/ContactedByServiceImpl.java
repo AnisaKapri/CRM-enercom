@@ -18,7 +18,7 @@ public class ContactedByServiceImpl implements ContactedByService {
     private final ContactedByRepository repository;
 
     @Override
-    public ContactedByDto getById(int id) {
+    public ContactedByDto getById(Long id) {
         return ContactedByMapper.toDto(repository.findById(id).orElse(null));
 
     }
@@ -34,7 +34,7 @@ public class ContactedByServiceImpl implements ContactedByService {
     }
 
     @Override
-    public ContactedByDto deleteById(int id) {
+    public ContactedByDto deleteById(Long id) {
         ContactedByEntity entity = repository.findById(id).orElse(null);
         if (entity == null) return null;
         repository.delete(entity);

@@ -6,11 +6,11 @@ import java.util.UUID;
 
 public interface TechnologyDeployedService {
 
-    TechnologyDeployedDto getById(int id);
+    TechnologyDeployedDto getById(Long id);
 
     TechnologyDeployedDto create(TechnologyDeployedDto technologyDeployedDto);
 
     TechnologyDeployedDto update(TechnologyDeployedDto technologyDeployedDto);
 
-    TechnologyDeployedDto deleteById(int id);
+    TechnologyDeployedDto deleteById(Long id);
 }

@@ -18,7 +18,7 @@ public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository repository;
 
     @Override
-    public CompanyDto getById(int id) {
+    public CompanyDto getById(Long id) {
         return CompanyMapper.toDto(repository.findById(id).orElse(null));
 
     }
@@ -35,7 +35,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyDto deleteById(int id) {
+    public CompanyDto deleteById(Long id) {
         CompanyEntity entity = repository.findById(id).orElse(null);
         if (entity == null) return null;
         repository.delete(entity);

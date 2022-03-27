@@ -1,5 +1,6 @@
 package com.example.crmenercom.util;
 
+import com.example.crmenercom.dto.ClientDto;
 import com.example.crmenercom.dto.CountryDto;
 import com.example.crmenercom.dto.NetworkOperatorDto;
 import com.example.crmenercom.dto.ProductDto;
@@ -19,8 +20,9 @@ public class Utils {
             ORDER_NOT_FOUND = "Requested order could not be found!",
             PRODUCT_NOT_FOUND = "Requested product could not be found!",
             COUNTRY_NOT_FOUND = "Requested country could not be found!",
+            NETOP_NOT_FOUND = "Requested network operator could not be found",
             CLIENT_NOT_FOUND = "Requested client could not be found!",
-            NETOP_HAS_COUNTRIES = "Network operator already has countries and cannot be deleted!",
+            COUNTRY_HAS_NETOP = "Country already has network operator and cannot be deleted!",
             INVALID_PASS = "Password is incorrect!";
 
 
@@ -34,6 +36,10 @@ public class Utils {
 
     public static String CntNotUnique(CountryDto country) {
         return String.format("Country \"%s\" already exists!", country.getName());
+    }
+
+    public static String ClientNonUnique(ClientDto client){
+        return String.format("Client  \"%s\" already exists!", client.getCompany());
     }
 
     public static String capFirst(String str) {

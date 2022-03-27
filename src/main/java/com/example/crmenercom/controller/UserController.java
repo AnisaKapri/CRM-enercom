@@ -34,9 +34,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/delete")
-    public String deleteById(@PathVariable(value = "id") Integer id) {
+    public String deleteById(@PathVariable(value = "id") Long id) {
         userService.deleteById(id);
-        return "redirect:/users";
+        return "redirect:/users/list";
     }
 
     private void addLoggedInUser(Model model) {

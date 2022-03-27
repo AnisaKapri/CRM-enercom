@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Setter
 
 public class ReportDto {
-    private int id;
+    private Long id;
     private String title;
     private String fileName;
     private LocalDate created;

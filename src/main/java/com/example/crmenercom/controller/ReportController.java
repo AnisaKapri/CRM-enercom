@@ -38,7 +38,7 @@ public class ReportController {
     }
 
     @DeleteMapping("/deleteReport/{id}")
-    public String deleteById(@PathVariable (value = "id") int id){
+    public String deleteById(@PathVariable (value = "id") Long id){
         reportService.deleteById(id);
         return "index";
     }

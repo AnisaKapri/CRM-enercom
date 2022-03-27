@@ -1,7 +1,5 @@
 package com.example.crmenercom.controller;
 
-
-import com.example.crmenercom.dto.ReportDto;
 import com.example.crmenercom.dto.SalesQuantityDto;
 import com.example.crmenercom.service.SalesQuantityService;
 import org.springframework.stereotype.Controller;
@@ -38,7 +36,7 @@ public class SalesQuantityController {
     }
 
     @DeleteMapping("/deleteSalesQuantity/{id}")
-    public String deleteById(@PathVariable (value = "id") int id){
+    public String deleteById(@PathVariable (value = "id") Long id){
         salesQuantityService.deleteById(id);
         return "index";
     }

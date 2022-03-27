@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 
 public class TechnologyDeployedDto {
-    private int id;
+    private Long id;
     private String name;
     private int years;
 }

@@ -6,114 +6,100 @@ import com.example.crmenercom.mapper.ClientMapper;
 import com.example.crmenercom.repository.ClientRepository;
 import com.example.crmenercom.service.ClientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
-
 public class ClientServiceImpl implements ClientService {
 
-    @Autowired
+
     private ClientRepository repository;
 
 
     @Override
     public List<ClientDto> selectAll() {
-        return repository.findAll()
-                .stream().map(ClientMapper::toDto)
-                .collect(Collectors.toList());
+        return null;
     }
 
-
     @Override
-    public List<ClientEntity> findAll(){
-        return repository.findAll();
-    }
-
-
-
-    @Override
-    public ClientDto findById(Integer id) {
+    public ClientDto findById(Long id) {
         return repository.findById(id)
                 .map(ClientMapper::toDto)
                 .orElse(null);
     }
 
     @Override
-    public ClientDto getById(int id) {
-        return ClientMapper.toDto(repository.findById(id).orElse(null));
+    public ClientDto add(ClientDto newClient) throws NonUniqueResultException {
+        if (exists(newClient))
+            throw new NonUniqueResultException(newClient.getCompany());
+        return ClientMapper.toDto(repository.save(ClientMapper.toEntity(newClient)));
     }
 
     @Override
-    public ClientDto create(ClientDto client) {
-        return ClientMapper.toDto(repository.save(ClientMapper.toEntity(client)));
+    public Boolean existsByCompany(String company) {
+        return repository.existsByCompany(company);
     }
 
     @Override
-    public ClientDto update(ClientDto clientDto) {
-        return ClientMapper.toDto(repository.save(ClientMapper.toEntity(clientDto)));
+    public Boolean existsByCompany(ClientDto client) {
+        return repository.existsByCompany(client.getCompany());
     }
 
+    @Override
+    public Boolean exists(ClientDto client) {
+        return repository.existsByCompany(client.getCompany());
+    }
 
     @Override
-    public ClientDto deleteById(Integer id) {
+    public ClientDto addClient(ClientDto newClient) {
+        if (existsByCompany(newClient)) throw new NonUniqueResultException("This company is already inserted!");
+        ClientEntity entity = ClientMapper.toEntity(newClient);
+        return ClientMapper.toDto(repository.save(entity));
+    }
+
+    @Override
+    public ClientDto findByCompany(String company) {
+        return repository.findByCompany(company)
+                .map(ClientMapper::toDto)
+                .orElse(null);
+    }
+
+    @Override
+    public ClientDto findByCompany(ClientDto client) {
+        return findByCompany(client.getCompany());
+    }
+
+    @Override
+    public ClientDto update(ClientDto current, ClientDto updated) throws NonUniqueResultException {
+        ClientDto newClient = add(updated);
+        delete(current);
+        return newClient;
+    }
+
+    @Override
+    public ClientDto deleteById(Long id) {
         ClientEntity client = repository.findById(id).orElse(null);
         if (client != null) {
-            ClientDto dto = ClientMapper.toDto(client);
             repository.delete(client);
-            return dto;
-        } else {
-            return null;
-        }
-    }
-
-
-    @Override
-    public List<ClientEntity> getAllClients(){
-        return repository.findAll();
+            return ClientMapper.toDto(client);
+        } else return null;
     }
 
     @Override
-    public void saveClient(ClientEntity client){
-        this.repository.save(client);
-    }
-
-    @Override
-    public ClientEntity getClientById(int id){
-        Optional<ClientEntity> optional = repository.findById(id);
-        ClientEntity client = null;
-        if(optional.isPresent()){
-            client = optional.get();
-        }else {
-            throw new RuntimeException("Client not found for id :: " + id);
-        }
+    public ClientDto delete(ClientDto client) {
+        repository.delete(ClientMapper.toEntity(client));
         return client;
     }
 
     @Override
-    public void deleteClientById(int id){
-        this.repository.deleteById(id);
-    }
-
-    @Override
-    public Page<ClientEntity> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
-                Sort.by(sortField).descending();
-
-        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-        return this.repository.findAll(pageable);
+    public ClientDto delete(String company){
+        return delete(findByCompany(company));
     }
 
 }

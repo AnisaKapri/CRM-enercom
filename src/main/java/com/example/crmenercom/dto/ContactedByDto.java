@@ -6,6 +6,6 @@ import lombok.*;
 @Setter
 
 public class ContactedByDto {
-    private int id;
+    private Long id;
     private String name;
 }

@@ -6,7 +6,6 @@ import com.example.crmenercom.entity.ClientEntity;
 public class ClientMapper {
 
     public static ClientEntity toEntity(ClientDto dto) {
-        if (dto == null) return null;
         ClientEntity entity = new ClientEntity();
         entity.setId(dto.getId());
         entity.setCountry(dto.getCountry());
@@ -22,7 +21,6 @@ public class ClientMapper {
     }
 
     public static ClientDto toDto(ClientEntity entity) {
-        if (entity == null) return null;
         ClientDto dto = new ClientDto();
         dto.setId(entity.getId());
         dto.setCountry(entity.getCountry());

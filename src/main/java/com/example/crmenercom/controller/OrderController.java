@@ -60,7 +60,7 @@ public class OrderController {
     public String getActive(Model model) {
         addLoggedInUser(model);
         UserDto user = auth.getLoggedInUser();
-        List<OrderDto> orders = orderService.selectAllFromUser(user.getId());
+        List<OrderDto> orders = orderService.selectAllFromUser((long) user.getId());
         List<UserDto> customers = userService.selectAll();
         String[] statuses = OrderStatus.getAllStatuses();
         model.addAttribute("orders", orders);
@@ -70,7 +70,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable(value = "id") Integer id) {
+    public String getById(Model model, @PathVariable(value = "id") Long id) {
         addLoggedInUser(model);
         OrderDto orders = orderService.findById(id);
         if (orders == null) {
@@ -99,11 +99,11 @@ public class OrderController {
     public String addOrder(Model model, @ModelAttribute(name = "order") OrderRequestDto order) {
         addLoggedInUser(model);
         List<ProductDto> products = new ArrayList<>();
-        Set<Integer> productIds = order.getProductIds().keySet();
-        for (Integer productId : productIds)
+        Set<Long> productIds = order.getProductIds().keySet();
+        for (Long productId : productIds)
             if (order.getProductIds().get(productId))
                 products.add(productsService.findById(productId));
-        Integer customerId = order.getCustomerId();
+        Long customerId = order.getCustomerId();
         OrderDto newOrder = orderService.add(customerId, products);
         UserDto customer = userService.findById(customerId);
         model.addAttribute("items", products);
@@ -113,13 +113,13 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/{id}/delete")
-    public String deleteById(@PathVariable(value = "id") Integer id) {
+    public String deleteById(@PathVariable(value = "id") Long id) {
         orderService.deleteById(id);
         return "redirect:/orders";
     }
 
     @RequestMapping(value = "/{id}/approve")
-    public String approveById(@PathVariable(value = "id") Integer id){
+    public String approveById(@PathVariable(value = "id") Long id){
         orderService.approveById(id);
         return "redirect:/orders";
     }

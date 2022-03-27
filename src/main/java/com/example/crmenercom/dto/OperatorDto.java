@@ -7,6 +7,6 @@ import lombok.*;
 
 public class OperatorDto {
 
-    private int id;
+    private Long id;
     private String name;
 }

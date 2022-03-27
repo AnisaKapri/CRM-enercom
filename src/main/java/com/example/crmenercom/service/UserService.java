@@ -15,7 +15,7 @@ public interface UserService {
 
     List<UserDto> selectAll();
 
-    UserDto findById(Integer id);
+    UserDto findById(Long id);
 
     UserDto findByEmail(String email);
 
@@ -23,5 +23,5 @@ public interface UserService {
 
     UserDto addUser(UserDto newUser);
 
-    UserDto deleteById(Integer id);
+    UserDto deleteById(Long id);
 }

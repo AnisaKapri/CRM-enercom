@@ -36,7 +36,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/deleteCompany/{id}")
-    public String deleteById(@PathVariable (value = "id") int id){
+    public String deleteById(@PathVariable (value = "id") Long id){
         companyService.deleteById(id);
         return "index";
     }

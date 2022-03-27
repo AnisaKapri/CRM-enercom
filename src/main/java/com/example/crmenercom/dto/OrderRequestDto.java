@@ -11,8 +11,8 @@ import java.util.Map;
 @Setter
 public class OrderRequestDto {
 
-    private Integer customerId;
-    private Map<Integer, Boolean> productIds;
+    private Long customerId;
+    private Map<Long, Boolean> productIds;
 
     public OrderRequestDto() {
     }

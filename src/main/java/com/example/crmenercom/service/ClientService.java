@@ -1,37 +1,41 @@
 package com.example.crmenercom.service;
 
 import com.example.crmenercom.dto.ClientDto;
+import com.example.crmenercom.dto.UserDto;
 import com.example.crmenercom.entity.ClientEntity;
 import org.springframework.data.domain.Page;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 
 public interface ClientService {
 
     List<ClientDto> selectAll();
 
-    List<ClientEntity> findAll();
+    ClientDto findById(Long id);
 
-    ClientDto findById(Integer id);
+    ClientDto add(ClientDto newClient) throws NonUniqueResultException;
 
-    ClientDto getById(int id);
+    Boolean existsByCompany(String company);
 
-    ClientDto create(ClientDto client);
+    Boolean existsByCompany(ClientDto client);
 
-    ClientDto update(ClientDto clientDto);
+    Boolean exists(ClientDto client);
 
-    ClientDto deleteById(Integer id);
+    ClientDto addClient(ClientDto newClient);
 
-    //forma tjt
-    List<ClientEntity> getAllClients();
 
-    void saveClient(ClientEntity client);
+    ClientDto findByCompany(String company);
 
-    ClientEntity getClientById(int id);
+    ClientDto findByCompany(ClientDto client);
 
-    void deleteClientById(int id);
+    ClientDto update(ClientDto current, ClientDto updated) throws NonUniqueResultException;
 
-    Page<ClientEntity> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+    ClientDto deleteById(Long id);
+
+    ClientDto delete(ClientDto client);
+
+    ClientDto delete(String company);
 
 
 }

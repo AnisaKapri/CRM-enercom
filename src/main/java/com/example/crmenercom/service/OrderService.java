@@ -12,17 +12,17 @@ public interface OrderService {
 
     List<OrderDto> selectAll();
 
-    List<OrderDto> selectAllFromUser(Integer customerId);
+    List<OrderDto> selectAllFromUser(Long customerId);
 
-    OrderDto findById(Integer id);
+    OrderDto findById(Long id);
 
-    OrderDto add(Integer customerId, List<ProductDto> items);
+    OrderDto add(Long customerId, List<ProductDto> items);
 
     OrderDto add(OrderDto order);
 
     OrderDto update(OrderDto current, OrderDto updated);
 
-    Boolean approveById(Integer id);
+    Boolean approveById(Long id);
 
-    OrderDto deleteById(Integer id);
+    OrderDto deleteById(Long id);
 }

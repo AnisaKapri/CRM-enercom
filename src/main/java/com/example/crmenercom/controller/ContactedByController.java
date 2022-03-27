@@ -19,25 +19,25 @@ public class ContactedByController {
     }
 
     @GetMapping("/readContactedBy")
-    public String getById(@ModelAttribute("contactedBy") ContactedByDto contactedByDto, BindingResult bindingResult, Model model){
+    public String getById(@ModelAttribute("contactedBy") ContactedByDto contactedByDto, BindingResult bindingResult, Model model) {
         contactedByService.getById(contactedByDto.getId());
         return "index";  // NDRYSHO
     }
 
     @PostMapping("/saveContactedBy")
-    public String create(@ModelAttribute("contactedBy") ContactedByDto contactedByDto, BindingResult bindingResult, Model model){
+    public String create(@ModelAttribute("contactedBy") ContactedByDto contactedByDto, BindingResult bindingResult, Model model) {
         contactedByService.create(contactedByDto);
         return "index";
     }
 
     @PutMapping("/updateContactedBy")
-    public String update(@ModelAttribute("contactedBy") ContactedByDto contactedByDto, BindingResult bindingResult, Model model){
+    public String update(@ModelAttribute("contactedBy") ContactedByDto contactedByDto, BindingResult bindingResult, Model model) {
         contactedByService.update(contactedByDto);
         return "index";
     }
 
     @DeleteMapping("/deleteContactedBy/{id}")
-    public String deleteById(@PathVariable (value = "id") int id){
+    public String deleteById(@PathVariable(value = "id") Long id) {
         contactedByService.deleteById(id);
         return "index";
     }

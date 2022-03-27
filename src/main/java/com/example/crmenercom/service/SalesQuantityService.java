@@ -7,11 +7,11 @@ import java.util.UUID;
 
 public interface SalesQuantityService {
 
-    SalesQuantityDto getById(int id);
+    SalesQuantityDto getById(Long id);
 
     SalesQuantityDto create(SalesQuantityDto salesQuantityDto);
 
     SalesQuantityDto update(SalesQuantityDto salesQuantityDto);
 
-    SalesQuantityDto deleteById(int id);
+    SalesQuantityDto deleteById(Long id);
 }

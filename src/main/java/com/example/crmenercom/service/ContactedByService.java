@@ -6,7 +6,7 @@ import java.util.UUID;
 
 
 public interface ContactedByService {
-    ContactedByDto getById(int id);
+    ContactedByDto getById(Long id);
 
     ContactedByDto create(ContactedByDto contactedByDto);
 
@@ -14,5 +14,5 @@ public interface ContactedByService {
     ContactedByDto update(ContactedByDto contactedByDto);
 
 
-    ContactedByDto deleteById(int id);
+    ContactedByDto deleteById(Long id);
 }

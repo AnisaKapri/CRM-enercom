@@ -1,37 +1,26 @@
 package com.example.crmenercom.service;
 
+
 import com.example.crmenercom.dto.CountryDto;
-import com.example.crmenercom.dto.NetworkOperatorDto;
 
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
-import java.util.UUID;
-
 
 public interface CountryService {
 
-
-    Boolean contains(NetworkOperatorDto networkOperator);
-
-    Long getNumOfCountries(NetworkOperatorDto networkOperator);
-
     List<CountryDto> selectAll();
 
-    List<CountryDto> selectAllByNetworkOperator(String networkOperator);
+    CountryDto findByName(String name);
 
-    CountryDto findById(int id);
+    Boolean exists(CountryDto country);
 
-    Boolean isUnique(CountryDto country);
-
-    CountryDto add(CountryDto country) throws NonUniqueResultException;
-
-    CountryDto overwrite(CountryDto country);
+    CountryDto add(CountryDto newCountry) throws NonUniqueResultException;
 
     CountryDto delete(CountryDto country);
 
-    CountryDto deleteById(int id);
+    CountryDto delete(String name);
 
-    CountryDto update(CountryDto updated);
+    CountryDto update(CountryDto current, CountryDto updated) throws NonUniqueResultException;
 
-    NetworkOperatorDto updateNetworkOperator(NetworkOperatorDto current, NetworkOperatorDto updated);
+
 }

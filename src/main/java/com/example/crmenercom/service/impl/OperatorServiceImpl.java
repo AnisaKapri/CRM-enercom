@@ -18,7 +18,7 @@ public class OperatorServiceImpl implements OperatorService {
     private final OperatorRepository repository;
 
     @Override
-    public OperatorDto getById(int id) {
+    public OperatorDto getById(Long id) {
         return OperatorMapper.toDto(repository.findById(id).orElse(null));
     }
 
@@ -33,7 +33,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public OperatorDto deleteById(int id) {
+    public OperatorDto deleteById(Long id) {
         OperatorEntity entity = repository.findById(id).orElse(null);
         if(entity == null) return null;
         repository.delete(entity);

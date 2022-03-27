@@ -3,7 +3,7 @@ import com.example.crmenercom.dto.OperatorDto;
 
 public interface OperatorService {
 
-    OperatorDto getById(int id);
+    OperatorDto getById(Long id);
 
     OperatorDto create(OperatorDto operatorDto);
 
@@ -11,5 +11,5 @@ public interface OperatorService {
     OperatorDto update(OperatorDto operatorDto);
 
 
-    OperatorDto deleteById(int id);
+    OperatorDto deleteById(Long id);
 }

@@ -18,7 +18,7 @@ public class ContactPersonServiceImpl implements ContactPersonService {
     private final ContactPersonRepository repository;
 
     @Override
-    public ContactPersonDto getById(int id) {
+    public ContactPersonDto getById(Long id) {
         return ContactPersonMapper.toDto(repository.findById(id).orElse(null));
     }
 
@@ -33,7 +33,7 @@ public class ContactPersonServiceImpl implements ContactPersonService {
     }
 
     @Override
-    public ContactPersonDto deleteById(int id) {
+    public ContactPersonDto deleteById(Long id) {
         ContactPersonEntity entity = repository.findById(id).orElse(null);
         if (entity == null) return null;
         repository.delete(entity);

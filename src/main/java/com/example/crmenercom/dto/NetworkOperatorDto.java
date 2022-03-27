@@ -1,34 +1,55 @@
 package com.example.crmenercom.dto;
 
+import com.example.crmenercom.entity.CountryEntity;
 import com.example.crmenercom.util.Utils;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 @Getter
 @Setter
 public class NetworkOperatorDto {
 
-    @Pattern(regexp = Utils.MULT_NAMES_REGEX,message = "Network Operator name is invalid!")
-    private int id;
+    @Pattern(regexp = Utils.MULT_NAMES_REGEX, message = "Network Operator name is invalid!")
+    private Long id;
     private String name;
-    private Long numOfCountries;
+    private CountryEntity country;
 
-    public NetworkOperatorDto(){
+    public NetworkOperatorDto() {
     }
 
-    public NetworkOperatorDto(String name){
+    public NetworkOperatorDto(NetworkOperatorDto networkOperator) {
+        id = networkOperator.id;
+        name = networkOperator.name;
+        country = networkOperator.country;
+    }
+
+    public void setName(String name) {
         this.name = Utils.capFirst(name);
     }
 
-    public boolean equals(NetworkOperatorDto n){
-        if (this == n) return true;
-        return name.equals(n.name);
+    public void setCountry(CountryEntity country) {
+        this.country = country;
     }
 
-    public boolean equals(String n) {
-        return name.equals(n);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NetworkOperatorDto that = (NetworkOperatorDto) o;
+        return id.equals(that.id)
+                && name.equals(that.name)
+                && Objects.equals(country, that.country);
     }
 
+    public boolean equalsLogically(NetworkOperatorDto networkOperator) {
+        return this == networkOperator || name.equals(networkOperator.name)
+                && country.equals(networkOperator.country);
+    }
+
+    public boolean isOf(String country) {
+        return this.country.equals(country);
+    }
 }

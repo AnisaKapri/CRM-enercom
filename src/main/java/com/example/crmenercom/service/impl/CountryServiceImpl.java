@@ -27,29 +27,6 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public Boolean contains(NetworkOperatorDto networkOperator) {
-        return selectAll().stream().anyMatch(country ->
-                networkOperator.getName().equals(country.getNetworkOperator()));
-    }
-
-
-    @Override
-    public Long getNumOfCountries(NetworkOperatorDto networkOperator) {
-        return selectAll().stream()
-                .map(CountryDto::getNetworkOperator)
-                .filter(networkOperator::equals)
-                .count();
-    }
-
-
-    @Override
-    public CountryDto findById(int id) {
-        return repository.findById(id)
-                .map(CountryMapper::toDto)
-                .orElse(null);
-    }
-
-    @Override
     public List<CountryDto> selectAll() {
         return repository.findAll()
                 .stream().map(CountryMapper::toDto)
@@ -57,24 +34,22 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<CountryDto> selectAllByNetworkOperator(String networkOperator) {
-        return repository.findAll()
-                .stream().map(CountryMapper::toDto)
-                .filter(country -> country.isOf(networkOperator))
-                .collect(Collectors.toList());
+    public CountryDto findByName(String name) {
+        return repository.findByName(name)
+                .map(CountryMapper::toDto)
+                .orElse(null);
     }
 
-
     @Override
-    public CountryDto add(CountryDto country) throws NonUniqueResultException {
-        if (isUnique(country)) throw new NonUniqueResultException(country.getName());
-        return CountryMapper.toDto(repository.save(CountryMapper.toEntity(country)));
+    public Boolean exists(CountryDto country) {
+        return repository.existsByName(country.getName());
     }
 
-
     @Override
-    public Boolean isUnique(CountryDto newCountry) {
-        return selectAll().stream().noneMatch(country -> country.equalsLogically(newCountry));
+    public CountryDto add(CountryDto newCountry) throws NonUniqueResultException {
+        if (exists(newCountry))
+            throw new NonUniqueResultException(newCountry.getName());
+        return CountryMapper.toDto(repository.save(CountryMapper.toEntity(newCountry)));
     }
 
 
@@ -84,37 +59,20 @@ public class CountryServiceImpl implements CountryService {
         return country;
     }
 
-    @Override
-    public CountryDto deleteById(int id) {
-        CountryEntity entity = repository.findById(id).orElse(null);
-        if (entity == null) return null;
-        repository.delete(entity);
-        return CountryMapper.toDto(entity);
-    }
 
     @Override
-    public CountryDto update(CountryDto countryDto) {
-        return CountryMapper.toDto(repository.save(CountryMapper.toEntity(countryDto)));
+    public CountryDto update(CountryDto current, CountryDto updated) throws NonUniqueResultException {
+        CountryDto newCnt = add(updated);
+        delete(current);
+        return newCnt;
     }
+
 
     @Override
-    public NetworkOperatorDto updateNetworkOperator(NetworkOperatorDto current, NetworkOperatorDto updated) {
-
-        if (contains(current)) {
-            for (CountryDto country : selectAll()) {
-                if (current.equals(country.getNetworkOperator())) {
-                    country.setNetworkOperator(updated);
-                    overwrite(country);
-                }
-            }
-            return updated;
-        }
-        return null;
+    public CountryDto delete(String name) {
+        return delete(findByName(name));
     }
 
-    @Override
-    public CountryDto overwrite(CountryDto country) {
-        return CountryMapper.toDto(repository.save(CountryMapper.toEntity(country)));
-    }
+
 
 }

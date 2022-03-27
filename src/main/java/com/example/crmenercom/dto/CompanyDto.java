@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 
 public class CompanyDto {
-    private int id;
+    private Long id;
     private String fullName;
     private String nip;
 }

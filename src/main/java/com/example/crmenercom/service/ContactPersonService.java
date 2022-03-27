@@ -6,7 +6,7 @@ import com.example.crmenercom.dto.ContactPersonDto;
 import java.util.UUID;
 
 public interface ContactPersonService {
-    ContactPersonDto getById(int id);
+    ContactPersonDto getById(Long id);
 
     ContactPersonDto create(ContactPersonDto contactPersonDto);
 
@@ -14,5 +14,5 @@ public interface ContactPersonService {
     ContactPersonDto update(ContactPersonDto contactPersonDto);
 
 
-    ContactPersonDto deleteById(int id);
+    ContactPersonDto deleteById(Long id);
 }

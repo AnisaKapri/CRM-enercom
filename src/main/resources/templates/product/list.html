@@ -21,7 +21,7 @@
 <aside th:include="/fragments::sidebar"></aside>
 <main class="align-items-center float-end">
     <p class="mb-5"></p>
-    <table id="products" class="table border-s">
+    <table id="items" class="table border-s">
         <thead class="thead-dark">
         <tr>
             <td scope="col">#</td>
@@ -48,8 +48,8 @@
                          onmouseover="priceOn(this);" onmouseout="priceOff(this);"></a>
                 <a th:attr="onclick=|editStatus('${product.status}' )|">
                     <img class="mx-1" title="Edit status"
-                    src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
-                    onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
+                         src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
+                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
                 <a th:attr="onclick=|deleteProduct('${product.id}', '${product.name}')|">
                     <img class="mx-1" title="Remove product"
                          src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
@@ -120,26 +120,26 @@
             $('#updateName').submit();
         });
     }
-  /*  function editCtg(id, name, category) {
-        swal({
-            text: `Edit category of item '${name}'?`,
-            content: createDropdown(category),
-            buttons: {
-                cancel: true,
-                send: {
-                    text: 'Submit',
-                    closeModal: false,
-                }
-            },
-        }).then(selected => {
-            console.log(selected);
-            $('#updateCtg-id').val(id);
-            $('#category').val(selected);
-            // $('#updateCtg').submit();
-        });
-    }
+    /*  function editCtg(id, name, category) {
+          swal({
+              text: `Edit category of item '${name}'?`,
+              content: createDropdown(category),
+              buttons: {
+                  cancel: true,
+                  send: {
+                      text: 'Submit',
+                      closeModal: false,
+                  }
+              },
+          }).then(selected => {
+              console.log(selected);
+              $('#updateCtg-id').val(id);
+              $('#category').val(selected);
+              // $('#updateCtg').submit();
+          });
+      }
 
-   */
+     */
     function editPrice(id, name, price, symbol) {
         swal({
             text: `Edit price of product '${name}' (${symbol})?`,
