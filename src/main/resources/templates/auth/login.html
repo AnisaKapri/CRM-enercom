@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Log In</title>
-    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
+    <link rel="icon" href="	https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link th:href="@{/styles/auth.css}" rel="stylesheet">
@@ -11,8 +11,8 @@
 <body class="text-center">
 <main class="form-login">
     <form class="align-self-center" method="POST" th:action="@{/perform_login}" th:object="${user}">
-        <img class="mb-2" src="/static/images/logo-pct.png" width="72" height="72" alt=" ">
-        <h1 class="h3 mb-3 fw-normal">Log In</h1>
+        <img class="mb-2" src="https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png" width="72" height="72" alt=" ">
+        <h1 class="h3 mb-3 fw-normal" ><b>Log In </b></h1>
         <p th:if="${invalidEmailError}" class="error" th:text="${invalidEmailError}">invalidEmailError</p>
         <p th:if="${invalidPassError}" class="error" th:text="${invalidPassError}">invalidPassError</p>
         <div class="form-floating mb-2">

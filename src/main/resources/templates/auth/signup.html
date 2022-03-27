@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
+    <link rel="icon" href="	https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link th:href="@{/styles/auth.css}" rel="stylesheet">
@@ -18,13 +18,14 @@
                  lastNameError  = ${#fields.hasErrors('lastName')},
                  emailError     = ${#fields.hasErrors('email')},
                  passwordError  = ${#fields.hasErrors('password')}">
-        <img class="mb-2" src="/static/images/logo-pct.png" width="72" height="72" alt=" ">
-        <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
-        <p hidden id="nonUniqueEmail"   class="error" th:text="${nonUniqueEmailError}">nonUniqueEmailError</p>
+        <img class="mb-2" src="https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png"
+             width="72" height="72" alt=" ">
+        <h1 class="h3 mb-3 fw-normal"><b>Sign Up</b></h1>
+        <p hidden id="nonUniqueEmail" class="error" th:text="${nonUniqueEmailError}">nonUniqueEmailError</p>
         <p hidden id="invalidFirstName" class="error" th:errors="*{firstName}">Invalid First Name</p>
-        <p hidden id="invalidLastName"  class="error" th:errors="*{lastName}">Invalid Last Name</p>
-        <p hidden id="invalidEmail"     class="error" th:errors="*{email}">Invalid Email</p>
-        <p hidden id="shortPassword"    class="error" th:errors="*{password}">Invalid Password</p>
+        <p hidden id="invalidLastName" class="error" th:errors="*{lastName}">Invalid Last Name</p>
+        <p hidden id="invalidEmail" class="error" th:errors="*{email}">Invalid Email</p>
+        <p hidden id="shortPassword" class="error" th:errors="*{password}">Invalid Password</p>
         <div class="form-floating mb-1">
             <input type="text" class="form-control" id="floatingFirstName"
                    placeholder="name@example.com" th:field="*{firstName}" required>
