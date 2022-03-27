@@ -3,7 +3,11 @@
     --bg: white;
 }
 
-body { background: var(--bg); }
+body {
+    background: var(--bg);
+    font-family: Montserrat sans-serif google;
+    font-size: 18px;
+}
 main { width: 80%; }
 
 .sidebar, aside, main {
@@ -15,6 +19,7 @@ main { width: 80%; }
 .sidebar{
     color: black;
 }
+
 .icon {
     fill: white;
     vertical-align: -.125em;

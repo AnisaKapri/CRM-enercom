@@ -21,7 +21,7 @@ public class NetworkOperatorController {
 
     private static final String
             NETOP_LIST = "networkOperator/list",
-            NETOP_BY_ID = "country/id",
+            NETOP_BY_ID = "networkOperator/id",
             RESULT = "networkOperator/result",
             FORM = "networkOperator/form",
             ERROR = "error";
@@ -80,7 +80,7 @@ public class NetworkOperatorController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute(name = "item") @Valid NetworkOperatorDto networkOperator,
+    public String add(@ModelAttribute(name = "networkOperator") @Valid NetworkOperatorDto networkOperator,
                       BindingResult result, Model model) {
         addLoggedInUser(model);
         if (result.hasErrors()) return FORM;

@@ -19,8 +19,10 @@
                  emailError     = ${#fields.hasErrors('email')},
                  passwordError  = ${#fields.hasErrors('password')}">
         <img class="mb-2" src="https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png"
-             width="72" height="72" alt=" ">
-        <h1 class="h3 mb-3 fw-normal"><b>Sign Up</b></h1>
+             width="300" height="100" >
+        <br><br><br>
+        <h1 class="h3 mb-3 fw-normal"><b>SIGN UP</b></h1>
+        <br>
         <p hidden id="nonUniqueEmail" class="error" th:text="${nonUniqueEmailError}">nonUniqueEmailError</p>
         <p hidden id="invalidFirstName" class="error" th:errors="*{firstName}">Invalid First Name</p>
         <p hidden id="invalidLastName" class="error" th:errors="*{lastName}">Invalid Last Name</p>
@@ -47,7 +49,8 @@
             <label class="input-placeholder" for="floatingPassword">Password</label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
-        <br><br><br><span class="text-muted">Already have an account? </span>
+        <br><br>
+        <span class="text-muted">Already have an account? </span>
         <a th:href="@{/login}" class="text-decoration-none">Log In</a>
         <script th:inline="javascript">
             if ([[${nonUniqueEmailError}]])

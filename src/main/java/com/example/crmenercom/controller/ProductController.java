@@ -6,6 +6,7 @@ import com.example.crmenercom.entity.OrderEntity;
 import com.example.crmenercom.service.ProductService;
 import com.example.crmenercom.service.UserService;
 import com.example.crmenercom.util.OrderStatus;
+import com.example.crmenercom.util.ProductStatus;
 import com.example.crmenercom.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,11 +43,11 @@ public class ProductController {
     }
 
 
-    @GetMapping({"/", ""})
+    @GetMapping("/list")
     public String getAll(Model model) {
         addLoggedInUser(model);
         List<ProductDto> products = productService.selectAll();
-        String[] statuses = OrderStatus.getAllStatuses();
+        String[] statuses = ProductStatus.getAllStatuses();
         model.addAttribute("products", products);
         model.addAttribute("updateProduct", new ProductDto());
         model.addAttribute("statuses", statuses);

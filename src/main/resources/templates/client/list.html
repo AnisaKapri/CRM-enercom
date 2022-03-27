@@ -21,7 +21,7 @@
 <aside th:include="/fragments::sidebar"></aside>
 <main class="align-items-center float-end">
     <p class="mb-5"></p>
-    <table id="items" class="table border-s">
+    <table id="clients" class="table border-s">
         <thead class="thead-dark">
         <tr>
             <td scope="col">#</td>
@@ -34,8 +34,6 @@
             <td scope="col">Role</td>
             <td scope="col">Contacted by</td>
             <td scope="col">Actions</td>
-
-
         </tr>
         </thead>
         <tr th:each="client,stats:${clients}">
@@ -54,8 +52,6 @@
                     <img class="mx-1" title="Edit client"
                          src="https://img.icons8.com/ios-glyphs/30/000000/search-client.png" height="20" width="20"
                          onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
-
-
                 <a th:attr="onclick=|deleteClient('${client.id}', '${client.country}','${client.company}','${client.operator}','${client.technologyDeployed}',
                   '${client.customerOfPCT}','${client.contact}','${client.contactDetails}','${client.role}','${client.contactedBy}')|">
                     <img class="mx-1" title="Remove client"
@@ -77,23 +73,26 @@
         <input id="contactedBy" type="text" th:field="*{contactedBy}"/>
     </form>
 </main>
+
 <script type="text/javascript">
-    $(document).ready(() => $('#items').DataTable({
+    $(document).ready(() => $('#clients').DataTable({
         'info': false,
         'columnDefs': [{
-            'targets': [4],
+            'targets': [3],
             'searchable': false,
             'orderable': false,
         }]
     }));
 
-    function editClient(id, country, company, operator, technologyDeployed, customerOfPCT, contact, contactDetails, contactedBy) {
+
+    // function editClient(id, country, company, operator, technologyDeployed, customerOfPCT, contact, contactDetails, contactedBy) {
+    function editClient(id, company) {
         swal({
             text: `Edit client '${company}'?`,
             content: {
                 element: "input",
                 attributes: {
-                    value: name,
+                    value: company,
                     type: "text",
                 }
             },
@@ -107,7 +106,7 @@
         }).then(updated => {
             if (!updated) throw null;
             $('#updateClient-id').val(id);
-            $('#name').val(updated);
+            $('#company').val(updated);
             $('#updateClient').submit();
         });
     }

@@ -58,7 +58,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto addClient(ClientDto newClient) {
-        if (existsByCompany(newClient)) throw new NonUniqueResultException("This company is already inserted!");
+        if (existsByCompany(newClient)) throw new NonUniqueResultException("This client is already inserted!");
         ClientEntity entity = ClientMapper.toEntity(newClient);
         return ClientMapper.toDto(repository.save(entity));
     }

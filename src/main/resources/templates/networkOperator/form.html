@@ -22,6 +22,7 @@
 </head>
 <body>
 <aside th:include="/fragments::sidebar"></aside>
+
 <h2>Add a new network operator</h2>
 <form method="POST" th:action="@{/networkOperators/add}" th:object="${networkOperator}">
     <label for="name">Name: </label><br>

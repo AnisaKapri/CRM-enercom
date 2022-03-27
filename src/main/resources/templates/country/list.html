@@ -24,7 +24,7 @@
     <table id="countries" class="table border-s">
         <thead class="thead-dark">
         <tr>
-            <td scope="col">Id</td>
+            <td scope="col">#</td>
             <td scope="col">Country</td>
             <td scope="col">Number of network operators</td>
             <td scope="col">Actions</td>
@@ -35,8 +35,9 @@
             <td th:text="${cnt.name}">Country</td>
             <td th:text="${#lists.size(cnt.networkOperators)}">Number of network operators</td>
             <td class="mx-2">
-                <a th:href="@{/countries/{name} (name = ${cnt.name})}"><img class="mx-1" title="View network operators"
-                                                                             src="https://img.icons8.com/ios-glyphs/30/000000/view-delivery.png" height="20" width="20"></a>
+                <a th:href="@{/countries/{name} (name = ${cnt.name})}">
+                    <img class="mx-1" title="View network operators"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/view-delivery.png" height="20" width="20"></a>
             </td>
         </tr>
     </table>

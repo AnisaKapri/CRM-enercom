@@ -11,8 +11,10 @@
 <body class="text-center">
 <main class="form-login">
     <form class="align-self-center" method="POST" th:action="@{/perform_login}" th:object="${user}">
-        <img class="mb-2" src="https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png" width="72" height="72" alt=" ">
-        <h1 class="h3 mb-3 fw-normal" ><b>Log In </b></h1>
+        <img class="mb-2" src="https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png" width="300" height="100">
+        <br><br><br>
+        <h1 class="h3 mb-3 fw-normal" ><b>LOGIN </b></h1>
+        <br>
         <p th:if="${invalidEmailError}" class="error" th:text="${invalidEmailError}">invalidEmailError</p>
         <p th:if="${invalidPassError}" class="error" th:text="${invalidPassError}">invalidPassError</p>
         <div class="form-floating mb-2">
@@ -28,7 +30,8 @@
             <input type="checkbox" name="remember-me" value="remember-me">
             <span>Remember me</span>
         </div>
-        <br><br><br><span class="text-muted">Don't have an account? </span>
+        <br><br>
+        <span class="text-muted">Don't have an account? </span>
         <a th:href="@{/signup}" class="text-decoration-none">Sign Up</a>
     </form>
 </main>

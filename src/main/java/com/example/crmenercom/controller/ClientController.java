@@ -37,7 +37,6 @@ public class ClientController {
         List<ClientDto> clients = clientService.selectAll();
         model.addAttribute("clients", clients);
         model.addAttribute("updateClient", new ClientDto());
-
         return CLIENT_LIST;
     }
 
@@ -75,61 +74,6 @@ public class ClientController {
         return "redirect:/clients";
     }
 
-   /* @GetMapping("")
-    public String viewHomePage(Model model) {
-        return findPaginated(1, "firstName", "asc", model);
-    }
-
-
-    @GetMapping("/showNewClientForm")
-    public String showNewClientForm(Model model){
-        ClientDto client = new ClientDto();
-        model.addAttribute("client", client);
-        return "new_client";
-    }
-
-    @PostMapping("/saveClient")
-    public String saveClient(@ModelAttribute("client") ClientEntity client){
-        clientService.saveClient(client);
-        return "redirect:/";
-    }
-
-    @GetMapping("/showFormForUpdated/{id}")
-    public String showFormForUpdate(@PathVariable (value = "id") Long id, Model model){
-        ClientEntity client = clientService.getClientById(id);
-        model.addAttribute("client", client);
-        return "update_client";
-    }
-
-    @GetMapping("/deleteClient/{id}")
-    public String deleteClient(@PathVariable(value = "id") Long id){
-        this.clientService.deleteClientById(id);
-        return "redirect:/";
-    }
-
-    @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-                                @RequestParam("sortField") String sortField,
-                                @RequestParam("sortDir") String sortDir,
-                                Model model){
-        int pageSize = 5;
-
-        Page<ClientEntity> page = clientService.findPaginated(pageNo, pageSize, sortField, sortDir );
-        List<ClientEntity> listClients = page.getContent();
-
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", page.getTotalPages());
-        model.addAttribute("totalItems", page.getTotalElements());
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-
-        model.addAttribute("listClients", listClients);
-        return "list";
-    }
-
-    */
 }
 
 
