@@ -6,25 +6,27 @@ import com.example.crmenercom.mapper.ClientMapper;
 import com.example.crmenercom.repository.ClientRepository;
 import com.example.crmenercom.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(propagation = Propagation.REQUIRED)
 public class ClientServiceImpl implements ClientService {
 
-
-    private ClientRepository repository;
-
+    private final ClientRepository repository;
 
     @Override
     public List<ClientDto> selectAll() {
-        return null;
+        return repository.findAll()
+                .stream().map(ClientMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override

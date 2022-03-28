@@ -47,13 +47,12 @@
             <td th:text="${client.role}">Role</td>
             <td th:text="${client.contactedBy}">Contacted by</td>
             <td class="mx-2">
-                <a th:attr="onclick=|editClient('${client.id}', '${client.country}','${client.company}','${client.operator}','${client.technologyDeployed}',
+                <!--<a th:attr="onclick=|editClient('${client.id}', '${client.country}','${client.company}','${client.operator}','${client.technologyDeployed}',
                   '${client.customerOfPCT}','${client.contact}','${client.contactDetails}','${client.role}','${client.contactedBy}')|">
                     <img class="mx-1" title="Edit client"
                          src="https://img.icons8.com/ios-glyphs/30/000000/search-client.png" height="20" width="20"
-                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
-                <a th:attr="onclick=|deleteClient('${client.id}', '${client.country}','${client.company}','${client.operator}','${client.technologyDeployed}',
-                  '${client.customerOfPCT}','${client.contact}','${client.contactDetails}','${client.role}','${client.contactedBy}')|">
+                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>-->
+                <a th:attr="onclick=|deleteClient('${client.id}', '${client.company}')|">
                     <img class="mx-1" title="Remove client"
                          src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
                          onmouseover="trashOn(this);" onmouseout="trashOff(this);"></a>
@@ -114,7 +113,7 @@
 
     function deleteClient(id, company) {
         swal({
-            title: 'Are you sure?',
+            title: `Are you sure you want to delete ${company}}`,
             icon: 'warning',
             buttons: [true, 'Delete'],
             dangerMode: true,

@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public enum ProductStatus {
 
-    STOCK(1, "Stock"),
-    SOLD(2, "Sold");
+    STOCK(0, "Stock"),
+    SOLD(1, "Sold");
 
     private final Integer code;
     private final String value;
