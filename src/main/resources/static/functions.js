@@ -3,6 +3,7 @@ const goToIndex = () => goTo("/");
 const goToCustomers = () => goTo("/customers");
 const goToOrders = () => goTo("/orders");
 const goToProducts = () => goTo("/products");
+const goToNetworkOperators = () => goTo("/networkOperator");
 const paintIcon = (el, icon, color) => el.src = getIcon(icon, color);
 const getIcon = (icon, color) => `https://img.icons8.com/ios-glyphs/30/${color}/${icon}.png`;
 function onEnter(input, action) {

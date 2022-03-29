@@ -24,7 +24,7 @@
 <aside th:include="/fragments::sidebar"></aside>
 
 <h2>Add a new network operator</h2>
-<form method="POST" th:action="@{/networkOperators/add}" th:object="${networkOperator}">
+<form method="POST" th:action="@{/networkOperators/create}" th:object="${networkOperator}">
     <label for="name">Name: </label><br>
     <input type="text" id="name" th:field="*{name}" required="required">
     <span th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}">[Invalid Name]</span>
@@ -41,7 +41,6 @@
 
     <input type="submit" value="Submit network operator">
 </form><br>
-
-<input type="button" value="Go back" onclick="goToIndex()">
+<input type="button" value="Go back" onclick="goToNetworkOperators()">
 </body>
 </html>

@@ -20,42 +20,38 @@
 </head>
 <body>
 <aside th:include="/fragments::sidebar"></aside>
-    <div class="container">
-        <hr>
-        <h2><b>New Client</b></h2>
-        <form class="align-self-center" method="POST" th:action="@{/clients/add}" th:object="${client}">
+<div class="container">
+    <hr>
+    <h2><b>New Client</b></h2>
+    <form class="align-self-center" method="POST" th:action="@{/clients/add}" th:object="${client}">
 
-            <input type="text" th:field="*{country}"
-                   placeholder="Country" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{country}"
+               placeholder="Country" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{company}"
-                   placeholder="Company name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{company}"
+               placeholder="Company name" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{operator}"
-                   placeholder="Operator name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{operator}"
+               placeholder="Operator name" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{technologyDeployed}"
-                   placeholder="Technology deployed" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{technologyDeployed}"
+               placeholder="Technology deployed" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{customerOfPCT}"
-                   placeholder="Customer of PCT" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{customerOfPCT}"
+               placeholder="Customer of PCT" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{contact}"
-                   placeholder="Contact name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{contact}"
+               placeholder="Contact name" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{role}"
-                   placeholder="Role" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{role}"
+               placeholder="Role" class="form-control mb-4 col-4">
 
-            <input type="text" th:field="*{contactedBy}"
-                   placeholder="Contacted by" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{contactedBy}"
+               placeholder="Contacted by" class="form-control mb-4 col-4">
 
-            <button type="submit" class="btn btn-info col-2"> Save Client</button>
-        </form>
-
-        <hr>
-
-    </div>
-
-
+        <button type="submit" class="btn btn-info col-2"> Save Client</button>
+    </form>
+    <hr>
+</div>
 </body>
 </html>

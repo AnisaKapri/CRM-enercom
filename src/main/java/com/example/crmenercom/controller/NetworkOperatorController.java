@@ -84,7 +84,6 @@ public class NetworkOperatorController {
                       BindingResult result, Model model) {
         addLoggedInUser(model);
         if (result.hasErrors()) return FORM;
-
         if (networkOperatorService.isUnique(networkOperator)) {
             model.addAttribute("countries", countryService.selectAll());
             model.addAttribute("nonUniqueItemError", Utils.NetOpNotUnique(networkOperator));
