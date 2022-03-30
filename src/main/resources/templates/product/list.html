@@ -28,6 +28,7 @@
             <td scope="col">Name</td>
             <td scope="col">Price</td>
             <td scope="col">Status</td>
+            <td scope="col">Client</td>
             <td scope="col">Actions</td>
         </tr>
         </thead>
@@ -36,6 +37,8 @@
             <td th:text="${product.name}">Product</td>
             <td th:text="${product.price}">Price</td>
             <td th:text="${statuses[product.status]}">Status</td>
+            <td th:text="${product.client.company}">Client</td>
+
 
             <td class="mx-2">
                 <a th:attr="onclick=|editName('${product.id}', '${product.name}')|">
@@ -48,6 +51,10 @@
                          onmouseover="priceOn(this);" onmouseout="priceOff(this);"></a>
                 <a th:attr="onclick=|editStatus('${product.status}' )|">
                     <img class="mx-1" title="Edit status"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
+                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
+                <a th:attr="onclick=|editClient('${product.client}' )|">
+                    <img class="mx-1" title="Edit client"
                          src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
                          onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
                 <a th:attr="onclick=|deleteProduct('${product.id}', '${product.name}')|">
@@ -68,24 +75,10 @@
     <form id="updateStatus" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
         <input id="status" type="text" th:field="*{status}"/>
     </form>
+    <form id="updateClient" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
+        <input id="client" type="text" th:field="*{client}"/>
+    </form>
 </main>
-<script type="text/javascript" th:inline="javascript">
-
-    function createDropdown(selected) {
-        const dropdown = document.createElement('select');
-        dropdown.setAttribute('name', 'updated');
-        for (let ctg of [[${categories}]]) {
-            let option = document.createElement('option');
-            option.setAttribute('value', ctg.name);
-            option.innerHTML = ctg.name;
-            if (ctg.name === selected)
-                option.setAttribute('selected', '');
-            dropdown.insertAdjacentElement('beforeend', option);
-        }
-        return dropdown;
-    }
-</script>
-
 <script type="text/javascript">
     $(document).ready(() => $('#products').DataTable({
         'info': false,
@@ -144,6 +137,31 @@
             $('#updatePrice-id').val(id);
             $('#price').val(updated);
             $('#updatePrice').submit();
+        });
+    }
+
+    function editClient(id, company){
+        swal({
+            text: `Rename client of '${company}'?`,
+            content: {
+                element: "input",
+                attributes: {
+                    value: company,
+                    type: "text",
+                }
+            },
+            buttons: {
+                cancel: true,
+                send: {
+                    text: 'Edit',
+                    closeModal: false,
+                }
+            },
+        }).then(updated => {
+            if (!updated) throw null;
+            $('#updateClient-id').val(id);
+            $('#status').val(updated);
+            $('#updateClient').submit();
         });
     }
 

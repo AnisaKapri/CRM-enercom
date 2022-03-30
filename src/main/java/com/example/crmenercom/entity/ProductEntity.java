@@ -1,5 +1,6 @@
 package com.example.crmenercom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,11 @@ public class ProductEntity {
 
     @ManyToMany(mappedBy = "products")
     private List<OrderEntity> orders;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
 
 
 }

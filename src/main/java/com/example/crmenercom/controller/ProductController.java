@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,6 +128,8 @@ public class ProductController {
             updated.setStatus(current.getStatus());
         if (updated.getPrice() == null)
             updated.setPrice(current.getPrice());
+        if (updated.getClient() == null)
+            updated.setClient(current.getClient());
     }
 
     private void addLoggedInUser(Model model) {

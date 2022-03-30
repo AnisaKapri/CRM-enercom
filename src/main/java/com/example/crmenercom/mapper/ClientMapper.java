@@ -17,6 +17,7 @@ public class ClientMapper {
         entity.setRole(dto.getRole());
         entity.setContactedBy(dto.getContactedBy());
         entity.setCreated(dto.getCreated());
+        entity.setProducts(dto.getProducts());
         return entity;
     }
 
@@ -32,6 +33,7 @@ public class ClientMapper {
         dto.setRole(entity.getRole());
         dto.setContactedBy(entity.getContactedBy());
         dto.setCreated(entity.getCreated());
+        dto.setProducts(entity.getProducts());
         return dto;
     }
 }

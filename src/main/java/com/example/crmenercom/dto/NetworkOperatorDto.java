@@ -20,10 +20,10 @@ public class NetworkOperatorDto {
     public NetworkOperatorDto() {
     }
 
-    public NetworkOperatorDto(NetworkOperatorDto networkOperator) {
-        id = networkOperator.id;
-        name = networkOperator.name;
-        country = networkOperator.country;
+    public NetworkOperatorDto(Long id, String name, CountryEntity country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
     }
 
     public void setName(String name) {

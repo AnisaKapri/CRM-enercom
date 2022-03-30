@@ -1,6 +1,5 @@
 package com.example.crmenercom.entity;
 
-import com.example.crmenercom.util.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +20,7 @@ public class NetworkOperatorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @JsonIgnore
     @ManyToOne @JoinColumn(name="country_id")
     private CountryEntity country;

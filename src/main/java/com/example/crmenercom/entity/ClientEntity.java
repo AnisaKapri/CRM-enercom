@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,6 +29,9 @@ public class ClientEntity {
 
     private LocalDateTime created;
 
+
+    @OneToMany(mappedBy = "client")
+    private List<ProductEntity> products;
 
 
 

@@ -8,6 +8,7 @@
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link th:href="@{/styles/tables.css}" rel="stylesheet">
+    <link th:href="@{/styles/auth.css}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
@@ -33,6 +34,7 @@
             <td scope="col">Contact</td>
             <td scope="col">Role</td>
             <td scope="col">Contacted by</td>
+            <td scope="col">Product Sold List</td>
             <td scope="col">Actions</td>
         </tr>
         </thead>
@@ -46,12 +48,17 @@
             <td th:text="${client.contact}">Contact</td>
             <td th:text="${client.role}">Role</td>
             <td th:text="${client.contactedBy}">Contacted by</td>
+            <td th:text="${#lists.size(client.products)}">Product Sold List</td>
+
             <td class="mx-2">
-                <!--<a th:attr="onclick=|editClient('${client.id}', '${client.country}','${client.company}','${client.operator}','${client.technologyDeployed}',
-                  '${client.customerOfPCT}','${client.contact}','${client.contactDetails}','${client.role}','${client.contactedBy}')|">
+                <a th:href="@{/clients/{company} (company = ${client.company})} ">
+                    <img class="mx-1" title="View products"
+                         src="https://img.icons8.com/ios-glyphs/30/000000/view-delivery.png" height="20" width="20"></a>
+                <a th:attr="onclick=|editClient('${client.id}', '${client.country}','${client.company}','${client.operator}','${client.technologyDeployed}',
+                  '${client.customerOfPCT}','${client.contact}','${client.role}','${client.contactedBy}')|">
                     <img class="mx-1" title="Edit client"
                          src="https://img.icons8.com/ios-glyphs/30/000000/search-client.png" height="20" width="20"
-                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>-->
+                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
                 <a th:attr="onclick=|deleteClient('${client.id}', '${client.company}')|">
                     <img class="mx-1" title="Remove client"
                          src="https://img.icons8.com/ios-glyphs/30/000000/filled-trash.png" height="20" width="20"
@@ -84,8 +91,8 @@
     }));
 
 
-    // function editClient(id, country, company, operator, technologyDeployed, customerOfPCT, contact, contactDetails, contactedBy) {
-    function editClient(id, company) {
+    function editClient(id, country, company, operator, technologyDeployed, customerOfPCT, contact, contactDetails, contactedBy) {
+        // function editClient(id, company) {
         swal({
             text: `Edit client '${company}'?`,
             content: {

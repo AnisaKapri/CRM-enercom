@@ -22,6 +22,7 @@ public class CountryEntity {
     @OneToMany(mappedBy = "country")
     private List<NetworkOperatorEntity> networkOperators;
 
+
     public void setName(String name){
         this.name = Utils.capFirst(name);
     }

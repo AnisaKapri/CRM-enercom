@@ -67,12 +67,9 @@ public class CountryServiceImpl implements CountryService {
         return newCnt;
     }
 
-
     @Override
     public CountryDto delete(String name) {
         return delete(findByName(name));
     }
-
-
 
 }

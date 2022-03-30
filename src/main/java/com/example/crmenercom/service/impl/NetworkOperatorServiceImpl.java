@@ -42,6 +42,8 @@ public class NetworkOperatorServiceImpl implements NetworkOperatorService {
                 .count();
     }
 
+
+
     @Override
     public NetworkOperatorDto findById(Long id) {
         return repository.findById(id)

@@ -1,8 +1,10 @@
 package com.example.crmenercom.dto;
 
+import com.example.crmenercom.entity.ProductEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,6 +20,7 @@ public class ClientDto {
     private String contact;
     private String role;
     private String contactedBy;
+    private List<ProductEntity> products;
 
     private LocalDateTime created;
 

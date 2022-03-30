@@ -1,7 +1,9 @@
 package com.example.crmenercom.service.impl;
 
+import com.example.crmenercom.dto.ClientDto;
 import com.example.crmenercom.dto.ProductDto;
 import com.example.crmenercom.entity.ProductEntity;
+import com.example.crmenercom.mapper.ClientMapper;
 import com.example.crmenercom.mapper.ProductMapper;
 import com.example.crmenercom.repository.ProductRepository;
 import com.example.crmenercom.service.ProductService;
@@ -10,12 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
@@ -29,6 +31,23 @@ public class ProductServiceImpl implements ProductService {
     public Boolean contains(ProductDto product) {
         return selectAll().contains(product);
     }
+
+    @Override
+    public Boolean contains(ClientDto client){
+        return selectAll().stream().anyMatch(product ->
+              client.getCompany().equals(product.getClient()));
+    }
+
+
+ /*   @Override
+    public Long getNumOfProducts(ClientDto client){
+        return selectAll().stream().map(ProductDto::getClient)
+                .filter(client::equals)
+                .count();
+    }
+
+  */
+
 
     @Override
     public ProductDto findById(Long id) {
@@ -53,7 +72,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Boolean isUnique(ProductDto newProduct) {
-        return selectAll().stream().noneMatch(product -> product.equalsLogically(newProduct));
+        return selectAll().stream().noneMatch(product ->
+                product.equalsLogically(newProduct));
     }
 
     @Override
@@ -64,8 +84,38 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto update(ProductDto updated) {
-        return ProductMapper.toDto(repository
-                .save(ProductMapper.toEntity(updated)));
+
+        if (updated.getId() == null)
+            throw new IllegalArgumentException("Id must be supplied on update");
+        ProductEntity existing = repository.findById(updated.getId()).orElse(null);
+        if (existing == null)
+            throw new EntityNotFoundException("Product with this id cannot be found");
+        existing.setName(updated.getName());
+        existing.setPrice(updated.getPrice());
+        existing.setStatus(updated.getStatus());
+
+        return ProductMapper.toDto(repository.save(existing));
+    }
+
+    @Override
+    public List<ProductDto> selectAllByClient(String client) {
+        return repository.findAllByClientCompany(client)
+                .stream().map(ProductMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ClientDto updateClient(ClientDto current, ClientDto updated) {
+        if (contains(current)) {
+            for (ProductDto product : selectAll()){
+                if (current.equals(product.getClient())){
+                    product.setClient(ClientMapper.toEntity(updated));
+                    overwrite(product);
+                }
+            }
+            return updated;
+        }
+        return null;
     }
 
     @Override

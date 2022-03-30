@@ -13,6 +13,7 @@ public class ProductMapper {
         entity.setStatus(dto.getStatus());
         entity.setPrice(dto.getPrice());
         entity.setOrders(dto.getOrders());
+        entity.setClient(dto.getClient());
         return entity;
     }
 
@@ -24,6 +25,7 @@ public class ProductMapper {
         dto.setStatus(entity.getStatus());
         dto.setPrice(entity.getPrice());
         dto.setOrders(entity.getOrders());
+        dto.setClient(entity.getClient());
         return dto;
     }
 
