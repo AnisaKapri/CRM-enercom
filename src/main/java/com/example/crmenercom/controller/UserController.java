@@ -46,7 +46,7 @@ public class UserController {
     }
 
     private void fillOut(UserDto updated) {
-        UserDto current = userService.findById(Math.toIntExact(updated.getId()));
+        UserDto current = userService.findById(updated.getId());
         if (updated.getRole() == null)
             updated.setRole(current.getRole());
         if (updated.getFirstName() == null)

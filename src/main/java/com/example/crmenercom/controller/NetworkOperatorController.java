@@ -32,7 +32,7 @@ public class NetworkOperatorController {
     private final CountryService countryService;
 
     @Autowired
-    public NetworkOperatorController(AuthController auth, NetworkOperatorService networkOperatorService, UserService userService, CountryService countryService) {
+    public NetworkOperatorController(AuthController auth, NetworkOperatorService networkOperatorService , UserService userService, CountryService countryService) {
         this.auth = auth;
         this.networkOperatorService = networkOperatorService;
         this.userService = userService;
@@ -71,7 +71,8 @@ public class NetworkOperatorController {
 
 
     @GetMapping("/create")
-    public String createForm(Model model) {
+    public String createForm(@ModelAttribute(name = "networkOperator") @Valid NetworkOperatorDto networkOperator,
+                             BindingResult result, Model model) {
         addLoggedInUser(model);
         List<CountryDto> countries = countryService.selectAll();
         model.addAttribute("countries", countries);

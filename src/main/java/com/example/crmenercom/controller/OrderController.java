@@ -70,9 +70,9 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public String getById(Model model, @PathVariable(value = "id") Long id) {
+    public String getById(Model model, @PathVariable(value = "id") Integer id) {
         addLoggedInUser(model);
-        OrderDto orders = orderService.findById(id);
+        OrderDto orders = orderService.findById(Long.valueOf(id));
         if (orders == null) {
             model.addAttribute("error", Utils.ORDER_NOT_FOUND); // TODO: to be deleted
             return ERROR;
