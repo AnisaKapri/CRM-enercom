@@ -6,41 +6,36 @@
     <link rel="icon" href="	https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-    <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link th:href="@{/styles/tables.css}" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
+    <link th:href="@{/styles/auth.css}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" th:src="@{/functions.js}"></script>
-    <style>
-        .error { color: red; }
-    </style>
+
 </head>
-<body>
-<aside th:include="/fragments::sidebar"></aside>
+<body class="text-center">
+<main class="form-login">
+    <form class="align-self-center" method="POST" th:action="@{/networkOperators/create}" th:object="${networkOperator}">
+        <img class="mb-2" src="https://www.pctstore.com/v/vspfiles/templates/261/images/template/header_bg.png"
+             width="300" height="100">
+        <br><br><br>
+        <h1 class="h3 mb-3 fw-normal"><b>Add a new Network Operator </b></h1>
+        <br>
+        <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="floatingName"
+                   placeholder="Name" th:field="*{name}" required>
+            <label class="input-placeholder" for="floatingName">Name</label>
+        </div>
+        <div class="form-floating mb-1">
+            <input type="text" class="form-control" id="floatingCountry"
+                   placeholder="Country" th:field="*{country}" required>
+            <label class="input-placeholder" for="floatingCountry">Country</label>
+        </div><br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        <br><br><br>
+        <input onclick='javascript:window.history.back()' value='Go Back'
+               type='button' button class="w-50 btn btn-lg btn-primary"/>
+    </form>
 
-<h2>Add a new network operator</h2>
-<form method="POST" th:action="@{/networkOperators/create}" th:object="${networkOperator}">
-    <label for="name">Name: </label><br>
-    <input type="text" id="name" th:field="*{name}" required="required">
-    <span th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}">[Invalid Name]</span>
-    <br><br>
 
-    <label for="country">Country: </label><br>
-    <select id="country" th:field="*{country}">
-        <option th:value="0" selected disabled></option>
-        <option th:each="country:${countries}" th:value="${country.name}" th:text="${country.name}">[Country]</option>
-    </select><br><br>
-
-    <br th:if="not ${nonUniqueItemError}">
-    <p th:if="${nonUniqueItemError}" th:text="${nonUniqueItemError}" class="error">[Error]</p>
-
-    <input type="submit" value="Submit network operator">
-</form><br>
-<input type="button" value="Go back" onclick="goToNetworkOperators()">
+</main>
 </body>
 </html>

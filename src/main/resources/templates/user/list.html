@@ -40,7 +40,7 @@
             <td class="mx-2" th:if="${customer.id == user.id}"></td>
             <td class="mx-2" th:if="${customer.id != user.id}">
 
-                <a th:attr="onclick=|editName(${customer.id}, '${customer.name}')|">
+                <a th:attr="onclick=|editName('${customer.id}', '${customer.name}')|">
                     <img class="mx-1" title="Rename user"
                          src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
                          onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
@@ -73,7 +73,7 @@
             buttons: [true, "Delete"],
             dangerMode: true,
         }).then(deleted => {
-            if (deleted) goTo("/users/" + id + "/delete");
+            if (deleted) goTo(`/users/${id}/delete`);
         });
     }
 

@@ -37,5 +37,7 @@ public interface ClientService {
 
     ClientDto delete(String company);
 
+    ClientDto update(ClientDto updated);
+
 
 }

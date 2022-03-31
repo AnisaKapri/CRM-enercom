@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class UserDto {
 
-    private int id;
+    private Long id;
     private String role;
     @Pattern(regexp = Utils.NAME_REGEX, message = "First name is invalid!")
     private String firstName;

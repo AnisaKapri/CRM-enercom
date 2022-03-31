@@ -1,7 +1,9 @@
 package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.UserDto;
+import com.example.crmenercom.entity.ProductEntity;
 import com.example.crmenercom.entity.UserEntity;
+import com.example.crmenercom.mapper.ProductMapper;
 import com.example.crmenercom.mapper.UserMapper;
 import com.example.crmenercom.repository.UserRepository;
 import com.example.crmenercom.service.UserService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findById(Long id) {
+    public UserDto findById(int id) {
         return repository.findById(id)
                 .map(UserMapper::toDto)
                 .orElse(null);
@@ -71,11 +74,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto deleteById(Long id) {
+    public UserDto deleteById(int id) {
         UserEntity user = repository.findById(id).orElse(null);
         if (user != null) {
             repository.delete(user);
             return UserMapper.toDto(user);
         } else return null;
     }
+
+    @Override
+    public UserDto update(UserDto updated) {
+
+        if (updated.getId() == null)
+            throw new IllegalArgumentException("Id must be supplied on update");
+        UserEntity existing = repository.findById(updated.getId()).orElse(null);
+        if (existing == null)
+            throw new EntityNotFoundException("Product with this id cannot be found");
+        existing.setRole(updated.getRole());
+        existing.setFirstName(updated.getFirstName());
+        existing.setLastName(updated.getLastName());
+        existing.setEmail(updated.getEmail());
+        existing.setPassword(updated.getPassword());
+
+        return UserMapper.toDto(repository.save(existing));
+    }
 }
+

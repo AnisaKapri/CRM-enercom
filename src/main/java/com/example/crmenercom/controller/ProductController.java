@@ -111,7 +111,7 @@ public class ProductController {
             Map<Long, UserDto> customers = new HashMap<>();
             for (OrderEntity order : orders) {
                 Long customerId = order.getCustomerId();
-                UserDto customer = userService.findById(customerId);
+                UserDto customer = userService.findById(Math.toIntExact(customerId));
                 customers.put(customerId, customer);
             }
 

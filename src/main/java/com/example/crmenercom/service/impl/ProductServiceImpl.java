@@ -33,9 +33,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Boolean contains(ClientDto client){
+    public Boolean contains(ClientDto client) {
         return selectAll().stream().anyMatch(product ->
-              client.getCompany().equals(product.getClient()));
+                client.getCompany().equals(product.getClient()));
     }
 
 
@@ -107,8 +107,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ClientDto updateClient(ClientDto current, ClientDto updated) {
         if (contains(current)) {
-            for (ProductDto product : selectAll()){
-                if (current.equals(product.getClient())){
+            for (ProductDto product : selectAll()) {
+                if (current.equals(product.getClient())) {
                     product.setClient(ClientMapper.toEntity(updated));
                     overwrite(product);
                 }

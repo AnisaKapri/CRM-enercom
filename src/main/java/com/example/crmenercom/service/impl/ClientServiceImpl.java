@@ -2,11 +2,14 @@ package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.ClientDto;
 import com.example.crmenercom.entity.ClientEntity;
+import com.example.crmenercom.entity.ProductEntity;
 import com.example.crmenercom.mapper.ClientMapper;
+import com.example.crmenercom.mapper.ProductMapper;
 import com.example.crmenercom.repository.ClientRepository;
 import com.example.crmenercom.service.ClientService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,8 +101,28 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto delete(String company){
+    public ClientDto delete(String company) {
         return delete(findByCompany(company));
+    }
+
+    @Override
+    public ClientDto update(ClientDto updated) {
+        if (updated.getId() == null)
+            throw new IllegalArgumentException("Id must be supplied on update");
+        ClientEntity existing = repository.findById(updated.getId()).orElse(null);
+        if (existing == null)
+            throw new EntityNotFoundException("Product with this id cannot be found");
+        existing.setCountry(updated.getCountry());
+        existing.setCompany(updated.getCompany());
+        existing.setOperator(updated.getOperator());
+        existing.setTechnologyDeployed(updated.getTechnologyDeployed());
+        existing.setCustomerOfPCT(updated.getCustomerOfPCT());
+        existing.setContact(updated.getContact());
+        existing.setRole(updated.getRole());
+        existing.setContactedBy(updated.getContactedBy());
+
+
+        return ClientMapper.toDto(repository.save(existing));
     }
 
 }

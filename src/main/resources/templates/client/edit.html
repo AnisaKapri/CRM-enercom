@@ -1,0 +1,78 @@
+<!-- DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Client Management System</title>
+    <link rel="icon" href="https://i.imgur.com/khyNqXm.png">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link th:href="@{/styles/tables.css}" rel="stylesheet">
+    <link th:href="@{/styles/auth.css}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <script type="text/javascript" th:src="@{/functions.js}"></script>
+</head>
+<body>
+<aside th:include="/fragments::sidebar"></aside>
+<form class="align-self-center" method="POST" th:action="@{/clients/add}" th:object="${client}">
+    <div class="form-group">
+        <label for="country">Country</label>
+        <input class="form-control" id="country" placeholder="Enter Country" required
+               th:field="*{country}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="company">Company</label>
+        <input class="form-control" id="company" placeholder="Enter Company" required
+               th:field="*{company}"
+               type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="company">Company</label>
+        <input class="form-control" id="company" placeholder="Enter Company" required
+               th:field="*{company}"
+               type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="technologyDeployed">Technology Deployed</label>
+        <input class="form-control" id="technologyDeployed" placeholder="Enter Technology Deployed" required
+               th:field="*{technologyDeployed}"
+               type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="customerOfPCT">Customer Of PCT</label>
+        <input class="form-control" id="customerOfPCT" placeholder="Customer Of PCT" required
+               th:field="*{customerOfPCT}"
+               type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="contact">Contact</label>
+        <input class="form-control" id="contact" placeholder="Enter Contact" required
+               th:field="*{contact}"
+               type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="role">Role</label>
+        <input class="form-control" id="role" placeholder="Enter Role" required
+               th:field="*{role}" type="text"/>
+    </div>
+    <div class="form-group">
+        <label for="contactedBy">Contacted By</label>
+        <input class="form-control" id="contactedBy" placeholder="Enter Contacted By" required
+               th:field="*{contactedBy}" type="text"/>
+    </div>
+    <div>
+        <input class="btn btn-success" type="submit" value="Update"
+               onclick="document.getElementById('activeFlag').value='true'">
+        <input class="btn btn-danger" type="submit" value="Delete"
+               onclick="document.getElementById('activeFlag').value='false'">
+    </div>
+</form>
+</body>
+</html> -->

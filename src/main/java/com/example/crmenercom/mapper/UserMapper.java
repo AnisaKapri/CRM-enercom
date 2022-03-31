@@ -8,7 +8,7 @@ public class UserMapper {
     public static UserEntity toEntity(UserDto dto) {
         if (dto == null) return null;
         UserEntity entity = new UserEntity();
-        entity.setId(dto.getId());
+        entity.setId(Math.toIntExact(dto.getId()));
         entity.setRole(dto.getRole());
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
@@ -20,7 +20,7 @@ public class UserMapper {
     public static UserDto toDto(UserEntity entity) {
         if (entity == null) return null;
         UserDto dto = new UserDto();
-        dto.setId(entity.getId());
+        dto.setId((long) entity.getId());
         dto.setRole(entity.getRole());
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());

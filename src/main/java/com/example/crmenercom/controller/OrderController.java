@@ -77,7 +77,7 @@ public class OrderController {
             model.addAttribute("error", Utils.ORDER_NOT_FOUND); // TODO: to be deleted
             return ERROR;
         } else {
-            UserDto customer = userService.findById(orders.getCustomerId());
+            UserDto customer = userService.findById(Math.toIntExact(orders.getCustomerId()));
             List<ProductDto> products = orders.getProducts();
             model.addAttribute("order", orders);
             model.addAttribute("customer", customer);
@@ -105,7 +105,7 @@ public class OrderController {
                 products.add(productsService.findById(productId));
         Long customerId = order.getCustomerId();
         OrderDto newOrder = orderService.add(customerId, products);
-        UserDto customer = userService.findById(customerId);
+        UserDto customer = userService.findById(Math.toIntExact(customerId));
         model.addAttribute("items", products);
         model.addAttribute("newOrder", newOrder);
         model.addAttribute("customer", customer);
