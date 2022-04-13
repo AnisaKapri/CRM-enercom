@@ -26,31 +26,27 @@
         <tr>
             <td scope="col">#</td>
             <td scope="col">Name</td>
-            <td scope="col">Price</td>
+            <td scope="col">Description</td>
+            <td scope="col">Qty in stock</td>
+            <td scope="col">Qty in production</td>
             <td scope="col">Status</td>
-            <td scope="col">Client</td>
+         <!--   <td scope="col">Client</td> -->
             <td scope="col">Actions</td>
         </tr>
         </thead>
         <tr th:each="product,stats:${products}">
             <td th:text="${stats.index+1}">ID</td>
             <td th:text="${product.name}">Product</td>
-            <td th:text="${product.price}">Price</td>
+            <td th:text="${product.description}">Description</td>
+            <td th:text="${product.quantityOnStock}">Qty in stock</td>
+            <td th:text="${product.quantityOnProduction}">Qty in production</td>
             <td th:text="${statuses[product.status]}">Status</td>
-            <td th:text="${product.client.company}">Client</td>
+        <!--    <td th:text="${product.client.company}">Client</td> -->
 
 
             <td class="mx-2">
                 <a th:attr="onclick=|editName('${product.id}', '${product.name}')|">
                     <img class="mx-1" title="Rename product"
-                         src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
-                         onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
-                <a th:attr="onclick=|editPrice('${product.id}', '${product.name}', '${product.price}')|">
-                    <img class="mx-1" title="Edit price"
-                         src="https://img.icons8.com/ios-glyphs/30/000000/price-tag-euro.png" height="20" width="20"
-                         onmouseover="priceOn(this);" onmouseout="priceOff(this);"></a>
-                <a th:attr="onclick=|editStatus('${product.id}', '${product.name}', '${product.status}' )|">
-                    <img class="mx-1" title="Edit status"
                          src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" height="20" width="20"
                          onmouseover="editOn(this);" onmouseout="editOff(this);"></a>
                 <a th:attr="onclick=|deleteProduct('${product.id}', '${product.name}')|">
@@ -63,10 +59,6 @@
     <form id="updateName" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
         <input id="updateName-id" type="number" th:field="*{id}"/>
         <input id="name" type="text" th:field="*{name}"/>
-    </form>
-    <form id="updatePrice" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
-        <input id="updatePrice-id" type="number" th:field="*{id}"/>
-        <input id="price" type="number" th:field="*{price}"/>
     </form>
     <form id="updateStatus" th:method="post" th:action="@{/products/update}" th:object="${updateProduct}">
         <input id="updateStatus-id" type="number" th:field="*{id}"/>

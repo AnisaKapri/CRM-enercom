@@ -17,9 +17,9 @@
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" th:src="@{/functions.js}"></script>
+
 </head>
 <body>
-<aside th:include="/fragments::sidebar"></aside>
 <main class="align-items-center float-end">
     <p class="mb-5"></p>
     <table id="clients" class="table border-s">
@@ -28,13 +28,16 @@
             <td scope="col">#</td>
             <td scope="col">Country</td>
             <td scope="col">Company</td>
+            <td scope="col">Contact</td>
             <td scope="col">Operator</td>
             <td scope="col">Technology Deployed</td>
             <td scope="col">Customer of PCT</td>
-            <td scope="col">Contact</td>
-            <td scope="col">Role</td>
+            <td scope="col">Title</td>
             <td scope="col">Contacted by</td>
+            <td scope="col">Phone Number</td>
+            <td scope="col">Email</td>
             <td scope="col">Product Sold List</td>
+            <td scope="col">Data added</td>
             <td scope="col">Actions</td>
         </tr>
         </thead>
@@ -42,13 +45,16 @@
             <td th:text="${stats.index+1}">ID</td>
             <td th:text="${client.country}">Country</td>
             <td th:text="${client.company}">Company</td>
+            <td th:text="${client.contact}">Contact</td>
             <td th:text="${client.operator}">Operator</td>
             <td th:text="${client.technologyDeployed}">Technology Deployed</td>
             <td th:text="${client.customerOfPCT}">Customer of PCT</td>
-            <td th:text="${client.contact}">Contact</td>
-            <td th:text="${client.role}">Role</td>
+            <td th:text="${client.getTitle}">Title</td>
             <td th:text="${client.contactedBy}">Contacted by</td>
+            <td th:text="${client.getPhoneNumber}">Phone Number</td>
+            <td th:text="${client.getEmail}">Email</td>
             <td th:text="${#lists.size(client.products)}">Product Sold List</td>
+            <td th:text="${client.getCreated()}">Data added</td>
 
             <td class="mx-2">
                 <a th:href="@{/clients/{company} (company = ${client.company})} ">
@@ -77,10 +83,17 @@
         <input id="technologyDeployed" type="text" th:field="*{technologyDeployed}"/>
         <input id="customerOfPCT" type="text" th:field="*{customerOfPCT}"/>
         <input id="contact" type="text" th:field="*{contact}"/>
-        <input id="role" type="text" th:field="*{role}"/>
+        <input id="role" type="text" th:field="*{title}"/>
         <input id="contactedBy" type="text" th:field="*{contactedBy}"/>
     </form>
+    <br>
 
+    <div class="align-self-center">
+        <button class="btn btn-lg btn-primary" onclick="goTo('/')" autofocus>Go back</button>
+
+     <!--   <input onclick='javascript:window.history.back()' value='Go Back'
+               type='button' button class="btn btn-lg btn-primary"/> -->
+    </div>
 </main>
 
 <script type="text/javascript">

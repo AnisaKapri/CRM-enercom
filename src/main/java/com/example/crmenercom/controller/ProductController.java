@@ -124,10 +124,14 @@ public class ProductController {
         ProductDto current = productService.findById(updated.getId());
         if (updated.getName() == null)
             updated.setName(current.getName());
+        if (updated.getDescription() == null)
+            updated.setDescription(current.getDescription());
+        if (updated.getQuantityOnStock() == null)
+            updated.setQuantityOnStock(current.getQuantityOnStock());
+        if (updated.getQuantityOnProduction() == null)
+            updated.setQuantityOnProduction(current.getQuantityOnProduction());
         if (updated.getStatus() == null)
             updated.setStatus(current.getStatus());
-        if (updated.getPrice() == null)
-            updated.setPrice(current.getPrice());
         if (updated.getClient() == null)
             updated.setClient(current.getClient());
     }

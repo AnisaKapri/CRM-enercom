@@ -120,8 +120,8 @@ public class ClientController {
             updated.setCustomerOfPCT(current.getCustomerOfPCT());
         if (updated.getCompany() == null)
             updated.setContact(current.getContact());
-        if (updated.getRole() == null)
-            updated.setRole(current.getRole());
+        if (updated.getTitle() == null)
+            updated.setTitle(current.getTitle());
         if (updated.getContactedBy() == null)
             updated.setContactedBy(current.getContactedBy());
     }

@@ -4,6 +4,7 @@ import com.example.crmenercom.entity.ProductEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,10 +19,12 @@ public class ClientDto {
     private String technologyDeployed;
     private String customerOfPCT;
     private String contact;
-    private String role;
+    private String title;
     private String contactedBy;
+    private String phoneNumber;
+    private String email;
+    private String notes;
     private List<ProductEntity> products;
-
     private LocalDateTime created;
 
     public ClientDto(String company) {

@@ -91,7 +91,9 @@ public class ProductServiceImpl implements ProductService {
         if (existing == null)
             throw new EntityNotFoundException("Product with this id cannot be found");
         existing.setName(updated.getName());
-        existing.setPrice(updated.getPrice());
+        existing.setDescription(updated.getDescription());
+        existing.setQuantityOnStock(updated.getQuantityOnStock());
+        existing.setQuantityOnProduction(updated.getQuantityOnProduction());
         existing.setStatus(updated.getStatus());
 
         return ProductMapper.toDto(repository.save(existing));

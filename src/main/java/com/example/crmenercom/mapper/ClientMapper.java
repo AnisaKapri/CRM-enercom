@@ -14,8 +14,11 @@ public class ClientMapper {
         entity.setTechnologyDeployed(dto.getTechnologyDeployed());
         entity.setCustomerOfPCT(dto.getCustomerOfPCT());
         entity.setContact(dto.getContact());
-        entity.setRole(dto.getRole());
+        entity.setRole(dto.getTitle());
         entity.setContactedBy(dto.getContactedBy());
+        entity.setPhoneNumber(dto.getPhoneNumber());
+        entity.setEmail(dto.getEmail());
+        entity.setNotes(dto.getNotes());
         entity.setCreated(dto.getCreated());
         entity.setProducts(dto.getProducts());
         return entity;
@@ -30,8 +33,11 @@ public class ClientMapper {
         dto.setTechnologyDeployed(entity.getTechnologyDeployed());
         dto.setContact(entity.getContact());
         dto.setCustomerOfPCT(entity.getCustomerOfPCT());
-        dto.setRole(entity.getRole());
+        dto.setTitle(entity.getRole());
         dto.setContactedBy(entity.getContactedBy());
+        dto.setPhoneNumber(entity.getPhoneNumber());
+        dto.setEmail(entity.getEmail());
+        dto.setNotes(entity.getNotes());
         dto.setCreated(entity.getCreated());
         dto.setProducts(entity.getProducts());
         return dto;

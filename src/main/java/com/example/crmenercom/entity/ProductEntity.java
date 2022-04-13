@@ -18,8 +18,11 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
+    private Integer quantityOnStock;
+    private Integer quantityOnProduction;
     private Integer status;
-    private String price;
+
 
     @ManyToMany(mappedBy = "products")
     private List<OrderEntity> orders;

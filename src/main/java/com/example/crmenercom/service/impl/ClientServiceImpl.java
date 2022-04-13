@@ -2,9 +2,7 @@ package com.example.crmenercom.service.impl;
 
 import com.example.crmenercom.dto.ClientDto;
 import com.example.crmenercom.entity.ClientEntity;
-import com.example.crmenercom.entity.ProductEntity;
 import com.example.crmenercom.mapper.ClientMapper;
-import com.example.crmenercom.mapper.ProductMapper;
 import com.example.crmenercom.repository.ClientRepository;
 import com.example.crmenercom.service.ClientService;
 import org.springframework.stereotype.Service;
@@ -118,7 +116,7 @@ public class ClientServiceImpl implements ClientService {
         existing.setTechnologyDeployed(updated.getTechnologyDeployed());
         existing.setCustomerOfPCT(updated.getCustomerOfPCT());
         existing.setContact(updated.getContact());
-        existing.setRole(updated.getRole());
+        existing.setRole(updated.getTitle());
         existing.setContactedBy(updated.getContactedBy());
 
 

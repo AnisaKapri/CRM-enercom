@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,9 @@ public class ClientEntity {
     private String contact;
     private String role;
     private String contactedBy;
-
+    private String phoneNumber;
+    private String email;
+    private String notes;
     private LocalDateTime created;
 
 

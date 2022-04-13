@@ -1,7 +1,6 @@
 package com.example.crmenercom.dto;
 
 import com.example.crmenercom.entity.ClientEntity;
-import com.example.crmenercom.entity.CountryEntity;
 import com.example.crmenercom.entity.OrderEntity;
 import com.example.crmenercom.util.Utils;
 import lombok.*;
@@ -18,19 +17,24 @@ public class ProductDto {
     private Long id;
     @Pattern(regexp = Utils.MULT_NAMES_REGEX, message = "Product name is invalid!")
     private String name;
+    private String description;
+    private Integer quantityOnStock;
+    private Integer quantityOnProduction;
     private Integer status;
-    private String price;
     private List<OrderEntity> orders = new ArrayList<>();
     private ClientEntity client;
 
     public ProductDto() {
     }
 
-    public ProductDto(Long id, String name, Integer status, String price, List<OrderEntity> orders, ClientEntity client) {
+    public ProductDto(Long id, String name, String description, Integer quantityOnStock, Integer quantityOnProduction, Integer status, List<OrderEntity> orders, ClientEntity client) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.quantityOnStock = quantityOnStock;
+        this.quantityOnProduction = quantityOnProduction;
         this.status = status;
-        this.price = price;
+
         this.orders = orders;
         this.client = client;
     }
